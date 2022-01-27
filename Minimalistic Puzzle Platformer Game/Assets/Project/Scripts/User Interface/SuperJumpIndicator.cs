@@ -18,7 +18,7 @@ public class SuperJumpIndicator : MonoBehaviour {
 			}
 		}
 		else {
-			superJumpIndicatorUI.text = "Can't Locate <b><color=red>Indicator.cs</color></b> in Scripts/User Interface";
+			superJumpIndicatorUI.text = "Can't Locate <b><color=red>Indicator.cs</color></b> in Project/Scripts/User Interface";
 		}
 		
 	}
