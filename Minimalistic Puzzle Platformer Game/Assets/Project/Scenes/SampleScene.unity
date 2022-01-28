@@ -1643,6 +1643,9 @@ MonoBehaviour:
   goUI: {fileID: 1388230030}
   indi: {fileID: 1104672281}
   player: {fileID: 1534664931}
+  env: {fileID: 787890272}
+  bgColour: {r: 0.9607843, g: 0.9647059, b: 0.98039216, a: 0}
+  colorLerpSpeed: 1
 --- !u!4 &333865958
 Transform:
   m_ObjectHideFlags: 0
