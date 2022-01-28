@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     [Header("Assignables")]
     public GameObject lcUI;
     public GameObject goUI;
+    public GameObject indi;
     public GameObject player;
 
     public static GameManager instance;
@@ -32,11 +33,15 @@ public class GameManager : MonoBehaviour
 
     public void Complete () {
         lcUI.SetActive(true);
+        indi.SetActive(false);
+        Time.timeScale = 1f;
         Destroy(player);
     }
 
     public void EndGame () {
         goUI.SetActive(true);
+        indi.SetActive(false);
+        Time.timeScale = 1f;
         Destroy(player);
     }
 }

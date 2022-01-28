@@ -1563,6 +1563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lcUI: {fileID: 521297701}
   goUI: {fileID: 1388230030}
+  indi: {fileID: 1104672281}
   player: {fileID: 1534664931}
 --- !u!4 &333865958
 Transform:
