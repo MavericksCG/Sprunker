@@ -23,4 +23,6 @@ public class Keybinds : MonoBehaviour
     public KeyCode quickRestart = KeyCode.R;
 
     public KeyCode interact = KeyCode.E;
+
+    public KeyCode pauseOrResume = KeyCode.Escape;
 }
