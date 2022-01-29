@@ -1,32 +1,57 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
-	public static bool GameIsPaused = false;
-
+	[Header("Variables")] 
+	[HideInInspector] public bool paused = false;
+	
 	public GameObject pausedUI;
+	public GameObject player;
+
+	public float desiredTimeScale;
+	
+	
+	// Pausing
+	private void Start () {
+		pausedUI.SetActive(false);
+	}
 
 	private void Update () {
 		if (Input.GetKeyDown(Keybinds.instance.pauseOrResume)) {
-			if (GameIsPaused) {
+			if (paused)
 				Resume();
-			}
-			else {
+			else
 				Pause();
-			}
 		}
 	}
 
 	private void Resume () {
+		paused = false;
 		pausedUI.SetActive(false);
 		Time.timeScale = 1f;
-		GameIsPaused = false;
+		player.SetActive(true);
 	}
 
 	private void Pause () {
+		paused = true;
 		pausedUI.SetActive(true);
-		Time.timeScale = 0f;
-		GameIsPaused = true;
+		Time.timeScale = desiredTimeScale;
+		player.SetActive(false);
+	}
+	
+	
+	// Button Handling 
+	public void ReturnToDesktop () {
+		Application.Quit();
+	}
+
+	public void ReturnToMainMenu () {
+		print("placeholder");
+	}
+
+	public void RestartCurrentLevel () {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 }

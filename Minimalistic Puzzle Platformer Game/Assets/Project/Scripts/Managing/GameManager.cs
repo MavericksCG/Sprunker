@@ -1,4 +1,4 @@
-using Cinemachine;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public GameObject lcUI;
     public GameObject goUI;
     public GameObject indi;
+    public GameObject pmUI;
     
     public GameObject player;
     public GameObject env;
@@ -27,6 +28,10 @@ public class GameManager : MonoBehaviour {
 
     private void Update () {
         QuickRestart();
+
+        if (pmUI.activeInHierarchy) {
+            indi.SetActive(false);
+        }
     }
 
     private void QuickRestart () {
@@ -41,6 +46,7 @@ public class GameManager : MonoBehaviour {
     public void Complete () {
         lcUI.SetActive(true);
         indi.SetActive(false);
+        pmUI.SetActive(false);
         Time.timeScale = 1f;
         Destroy(player);
     }
@@ -50,6 +56,7 @@ public class GameManager : MonoBehaviour {
         Camera.main.backgroundColor = Color.Lerp(Camera.main.backgroundColor, bgColour, colorLerpSpeed * Time.deltaTime);
         goUI.SetActive(true);
         indi.SetActive(false);
+        pmUI.SetActive(false);
         Time.timeScale = 1f;
         Destroy(player);
     }
