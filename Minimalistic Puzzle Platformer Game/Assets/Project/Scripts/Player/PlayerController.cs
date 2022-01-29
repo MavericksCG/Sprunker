@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
         #endregion
 
-        if (Input.GetKeyDown(Keybinds.instance.superJump) && canSuperJump) {
+        if (Input.GetKey(Keybinds.instance.superJump) && canSuperJump) {
             StartCoroutine(SuperJump());
         }
 
@@ -157,20 +157,3 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.EndGame();
     }
 }
-
-/*
-
-using UnityEngine
-
-public class YourScriptName : MonoBehaviour {
-    
-    public Vector3 followOffset;
-    public Transform target; // This is supposed to be the object which the camera is going to follow
-
-    private void Update () {
-        transform.position = target.position + followOffset;
-    }
-    
-}
-
-*/
