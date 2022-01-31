@@ -18,7 +18,10 @@ public class GameOver : MonoBehaviour {
 	public GameObject controlsTextUIObj;
 	public GameObject showButton;
 	public GameObject hideButton;
-		[Space]
+
+	public Transform player;
+
+	[Space]
 	public string[] randomText;
 	
 
@@ -61,11 +64,9 @@ public class GameOver : MonoBehaviour {
 		randomTextUIObj.SetActive(true);
 	}
 
-	public void Retry () {
-		
+	public void Retry () {	
 		gameOverUI.SetActive(false);
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		
 	}
 
 

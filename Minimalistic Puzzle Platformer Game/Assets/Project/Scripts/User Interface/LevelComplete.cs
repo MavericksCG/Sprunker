@@ -20,10 +20,8 @@ public class LevelComplete : MonoBehaviour {
 
 	
 	// Miscellaneous
-	private void Start () {
-		
+	private void Start () { 
 		PickRandomText();
-
 	}
 
 
