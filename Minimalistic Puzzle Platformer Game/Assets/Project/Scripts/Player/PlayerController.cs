@@ -152,8 +152,8 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    
     private void Die () {
+        // Invoke the EndGame method in the GameManager
         GameManager.instance.EndGame();
     }
 }
