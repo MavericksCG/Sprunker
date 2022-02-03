@@ -4,11 +4,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
+
     [Tooltip("How fast should the player move")] public float moveSpeed;
 
     private Rigidbody2D rb;
 
     [Header("Movement/Jumping")]
+
     [Tooltip("How high should the player jump")] public float jumpForce;
     [Tooltip("How high should the Physics2D.Raycast check to confirm whether the player can jump or not. Recommended value is anywhere between 0.1 - 0.3")] public float checkHeight;
 
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Movement/Sprinting")]
+
     [Tooltip("The player's default speed value")] public float normalSpeed;
     [Tooltip("How fast should the player move if it's sprinting")] public float sprintSpeed;
 
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Movement/Jumping/SuperJump")]
+
     [Tooltip("How high should the player jump when it performs a super jump")] public float superJumpForce;
     [Tooltip("How much time should elapse before you can perform another super jump after the player has already performed one")] public float superJumpCooldown;
 
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Teleportation")] 
+
     [Tooltip("Confirm Teleportation Prompt")] public GameObject prompt;
     private GameObject currentTeleporter;
 
