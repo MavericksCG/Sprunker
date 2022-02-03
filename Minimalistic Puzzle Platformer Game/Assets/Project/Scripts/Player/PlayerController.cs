@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
 
     private void FixedUpdate () {
+        // Call Methods
         HandleMovement();
         HandleTeleportation();
     }
