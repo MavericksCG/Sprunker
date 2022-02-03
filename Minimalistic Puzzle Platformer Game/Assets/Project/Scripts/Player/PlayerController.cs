@@ -138,8 +138,10 @@ public class PlayerController : MonoBehaviour
             prompt.SetActive(true);
             currentTeleporter = col.gameObject;
         }
+
         else if (col.CompareTag("Teleporter") && !canTeleport)
             Destroy(prompt);
+
 
         if (col.CompareTag("End Trigger")) {
             GameManager.instance.Complete();
@@ -157,6 +159,7 @@ public class PlayerController : MonoBehaviour
             Destroy(prompt);
         
     }
+
 
     private void Die () {
         // Invoke the EndGame method in the GameManager
