@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour {
         if (pmUI.activeInHierarchy) {
             indi.SetActive(false);
         }
+        else {
+            indi.SetActive(true);
+        }
     }
 
     private void QuickRestart () {
