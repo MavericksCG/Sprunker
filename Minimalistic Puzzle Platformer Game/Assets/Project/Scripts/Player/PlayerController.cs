@@ -4,36 +4,36 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed;
+    [Tooltip("How fast should the player move")] public float moveSpeed;
 
     private Rigidbody2D rb;
 
     [Header("Movement/Jumping")]
-    public float jumpForce;
-    public float checkHeight;
+    [Tooltip("How high should the player jump")] public float jumpForce;
+    [Tooltip("How high should the Physics2D.Raycast check to confirm whether the player can jump or not. Recommended value is anywhere between 0.1 - 0.3")] public float checkHeight;
 
     private bool isGrounded;
 
-    public Transform groundCheck;
-    public LayerMask whatIsGround;
+    [Tooltip("Where should the Physics2D Engine shoot the raycast. Place this right under the player's feet")] public Transform groundCheck;
+    [Tooltip("Whichever Layer you pass in this layermask will be the layer on which the player can perform jumps and superjumps")] public LayerMask whatIsGround;
 
 
     [Header("Movement/Sprinting")]
-    public float normalSpeed;
-    public float sprintSpeed;
+    [Tooltip("The player's default speed value")] public float normalSpeed;
+    [Tooltip("How fast should the player move if it's sprinting")] public float sprintSpeed;
 
-    public float accelerationSpeed;
+    [Tooltip("How fast should the player's speed interpolate to the sprint or normal speed")] public float accelerationSpeed;
 
 
     [Header("Movement/Jumping/SuperJump")]
-    public float superJumpForce;
-    public float superJumpCooldown;
+    [Tooltip("How high should the player jump when it performs a super jump")] public float superJumpForce;
+    [Tooltip("How much time should elapse before you can perform another super jump after the player has already performed one")] public float superJumpCooldown;
 
     [HideInInspector] public bool canSuperJump = true;
 
 
     [Header("Teleportation")] 
-    public GameObject prompt;
+    [Tooltip("Confirm Teleportation Prompt")] public GameObject prompt;
     private GameObject currentTeleporter;
 
     private bool canTeleport = true;
