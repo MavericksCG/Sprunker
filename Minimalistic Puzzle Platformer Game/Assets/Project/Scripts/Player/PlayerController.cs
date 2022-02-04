@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement/Jumping/SuperJump")]
 
     [Tooltip("How high should the player jump when it performs a super jump")] public float superJumpForce;
-    [Tooltip("How much time should elapse before you can perform another super jump after the player has already performed one")] public float superJumpCooldown;
+    [Tooltip("How much time should elapse before you can perform another super jump after the player has already performed one")] [Range(0.1f, 10f)] public float superJumpCooldown;
 
     [HideInInspector] public bool canSuperJump = true;
 
