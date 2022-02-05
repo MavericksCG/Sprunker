@@ -47,8 +47,8 @@ MonoBehaviour:
   altJump: 273
   sprint: 304
   altSprint: 306
-  superJump: 9
-  slowMotion: 324
+  superJump: 324
+  slowMotion: 323
   quickRestart: 114
   interact: 101
   pauseOrResume: 27
