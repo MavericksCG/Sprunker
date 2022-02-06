@@ -42,8 +42,15 @@ public class PlayerController : MonoBehaviour
     private GameObject currentTeleporter;
 
     private bool canTeleport = true;
-    
-    
+
+
+    [Header("Physics")]
+    public float minClampSpeed;
+    public float maxClampSpeed;
+    public float maxSpeedBeforeActivatingClamping; // That's quite a big variable name though...   
+    private float rigidbodyVelocityY;
+
+
     private void Awake () {
         rb = GetComponent<Rigidbody2D>();
     }
@@ -61,7 +68,6 @@ public class PlayerController : MonoBehaviour
         HandleTeleportation();
     }
 
-
     private void HandleTeleportation () {
 
         if (Input.GetKey(Keybinds.instance.interact)) {
@@ -75,6 +81,8 @@ public class PlayerController : MonoBehaviour
     
 
     private void HandleMovement () {
+
+        rigidbodyVelocityY = rb.velocity.y;
 
         // GetAxis provides smoother but less snappier movement but GetAxisRaw made it look a little suspiciously snappy
         float horizontalMovement = Input.GetAxis("Horizontal"); 
@@ -109,6 +117,11 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SuperJump());
         }
 
+
+        if (rb.velocity.y >= maxSpeedBeforeActivatingClamping) {
+            rigidbodyVelocityY = Mathf.Clamp(rb.velocity.y, minClampSpeed, maxClampSpeed);
+        }
+
     }
 
 
@@ -124,11 +137,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D col) {
-        
+    private void OnCollisionEnter2D (Collision2D col) {
+
         if (col.gameObject.CompareTag("Harmful Platform")) {
             Die();
         }
+
     }
 
 
