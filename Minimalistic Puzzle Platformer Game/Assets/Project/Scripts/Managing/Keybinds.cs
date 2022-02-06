@@ -25,4 +25,7 @@ public class Keybinds : MonoBehaviour
     public KeyCode interact = KeyCode.E;
 
     public KeyCode pauseOrResume = KeyCode.Escape;
+
+    public KeyCode pulldownKey = KeyCode.S;
+    public KeyCode altPulldownKey = KeyCode.DownArrow;
 }

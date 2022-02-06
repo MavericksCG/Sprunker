@@ -160,6 +160,7 @@ MonoBehaviour:
   superJumpForce: 20
   superJumpCooldown: 40
   canSuperJump: 1
+  pulldownForce: 100
   prompt: {fileID: 0}
   minClampSpeed: 6
   maxClampSpeed: 6

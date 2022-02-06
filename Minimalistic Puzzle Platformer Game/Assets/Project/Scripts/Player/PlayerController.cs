@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool canSuperJump = true;
 
 
+    [Header("Movement/Miscellaneous")]
+    public float pulldownForce;
+
+
     [Header("Teleportation")] 
 
     [Tooltip("Confirm Teleportation Prompt")] public GameObject prompt;
@@ -115,17 +119,28 @@ public class PlayerController : MonoBehaviour
 
         #endregion
 
+        // Super Jump
         if (Input.GetKey(Keybinds.instance.superJump) && canSuperJump) {
             StartCoroutine(SuperJump());
         }
 
+        #region Fall Speed Clamping
 
         if (rb.velocity.y >= maxSpeedBeforeActivatingClamping) {
             rigidbodyVelocityY = Mathf.Clamp(rb.velocity.y, minClampSpeed, maxClampSpeed);
         }
 
-    }
+        #endregion
 
+        #region Pulldown Ability 
+
+        if ((Input.GetKey(Keybinds.instance.pulldownKey) || Input.GetKey(Keybinds.instance.altPulldownKey))) {
+            rb.AddForce(Vector2.down * pulldownForce, ForceMode2D.Force);
+        }
+
+        #endregion
+
+    }
 
     private IEnumerator SuperJump () {
 
