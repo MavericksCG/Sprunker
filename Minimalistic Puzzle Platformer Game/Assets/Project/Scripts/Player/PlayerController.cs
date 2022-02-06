@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Physics")]
+
+    // Fall Speed
     public float minClampSpeed;
     public float maxClampSpeed;
     public float maxSpeedBeforeActivatingClamping; // That's quite a big variable name though...   
