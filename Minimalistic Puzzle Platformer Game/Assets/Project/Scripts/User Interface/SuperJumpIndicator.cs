@@ -3,7 +3,7 @@ using TMPro;
 
 public class SuperJumpIndicator : MonoBehaviour {
 	
-	[Header("Variables")] [Space] 
+	[Header("VARIABLES")] [Space] 
 	public TextMeshProUGUI superJumpIndicatorUI;
 
 	public PlayerController controller;

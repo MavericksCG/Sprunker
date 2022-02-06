@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement")]
+    [Header("MOVEMENT")]
     public float moveSpeed;
 
     private Rigidbody2D rb;
 
 
-    [Header("Movement/Jumping")]
+    [Header("MOVEMENT/JUMPING")]
     public float jumpForce;
     public float checkHeight;
 
@@ -19,32 +19,32 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
 
 
-    [Header("Movement/Sprinting")]
+    [Header("MOVEMENT/SPRINTING")]
     public float normalSpeed;
     public float sprintSpeed;
 
     public float accelerationSpeed;
 
 
-    [Header("Movement/Jumping/SuperJump")]
+    [Header("MOVEMENT/JUMPING/SUPER-JUMP")]
     public float superJumpForce;
-    [Range(0.1f, 10f)] public float superJumpCooldown;
+    [Range(0.1f, 100f)] public float superJumpCooldown;
 
     [HideInInspector] public bool canSuperJump = true;
 
 
-    [Header("Movement/Miscellaneous")]
+    [Header("MOVEMENT/PULLDOWN")]
     public float pulldownForce;
 
 
-    [Header("Teleportation")] 
+    [Header("TELEPORTATION")] 
     public GameObject prompt;
     private GameObject currentTeleporter;
 
     private bool canTeleport = true;
 
 
-    [Header("Physics")]
+    [Header("PHYSICS")]
 
     // Fall Speed
     public float minClampSpeed;

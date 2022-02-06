@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour {
 	
-	[Header("Assignables")] 
+	[Header("ASSIGNABLES")] 
 	public float speed;
 
 	public int startingPoint;

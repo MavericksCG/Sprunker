@@ -10,7 +10,7 @@ public class SlowMotion : MonoBehaviour {
         Chromatic Abberation - 0.02 
     */
 
-    [Header("Effects")] [Space]
+    [Header("EFFECTS")] [Space]
     public PostProcessVolume volume;
 
     // Effects
@@ -20,14 +20,14 @@ public class SlowMotion : MonoBehaviour {
     private LensDistortion ld;
 
 
-    [Header("Desired Values")] [Space]
+    [Header("DESIRED VALUES")] [Space]
     public float desiredVignetteAmount;
     public float desiredBloomIntensityAmount;
     public float desiredChromaticAbberationAmount;
     public float desiredLensDistortionAmount;
 
 
-    [Header("Smoothing")]
+    [Header("SMOOTHING")]
     [Space]
     [Range(0f, 1f)] public float vignetteSmoothSpeed;
     [Range(0f, 1f)] public float bloomSmoothSpeed;
@@ -37,7 +37,7 @@ public class SlowMotion : MonoBehaviour {
     [Range(0f, 1f)] public float timeScaleSmoothing;
 
 
-    [Header("Reverse Smoothing")] [Space]
+    [Header("REVERSE SMOOTHING")] [Space]
     [Range(0f, 1f)] public float reverseVignetteSmoothSpeed;
     [Range(0f, 1f)] public float reverseBloomSmoothSpeed;
     [Range(0f, 1f)] public float revereChromaticAbberationSmoothSpeed;
@@ -45,9 +45,7 @@ public class SlowMotion : MonoBehaviour {
 
 
     private void Update() {
-
         SlowMotionEnableDisable();
-
     }
 
     private void SlowMotionEnableDisable() {

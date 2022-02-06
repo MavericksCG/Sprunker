@@ -5,7 +5,7 @@ using TMPro;
 
 public class GameOver : MonoBehaviour {
 
-	[Header("Assignables")]
+	[Header("ASSIGNABLES")]
 	public TextMeshProUGUI randomTextUI;
 
 	private int chance;

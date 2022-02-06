@@ -9,7 +9,7 @@ public class Keybinds : MonoBehaviour
         instance = this;
     }
 
-    [Header("Keybinds")]
+    [Header("KEYBINDS")]
     public KeyCode jump = KeyCode.Space;
     public KeyCode altJump = KeyCode.UpArrow;
 

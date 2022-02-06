@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     
-    [Header("Assignables")]
+    [Header("ASSIGNABLES")]
 
     public GameObject lcUI;
     public GameObject goUI;
