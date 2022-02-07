@@ -10,6 +10,7 @@ TagManager:
   - Magnet
   - Teleporter
   - End Trigger
+  - Switch Virtual Camera
   layers:
   - Default
   - TransparentFX

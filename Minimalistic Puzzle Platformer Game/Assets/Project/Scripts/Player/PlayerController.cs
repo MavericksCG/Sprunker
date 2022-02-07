@@ -46,12 +46,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("PHYSICS")]
 
-    // Fall Speed
-    public float minClampSpeed;
-    public float maxClampSpeed;
-    public float maxSpeedBeforeActivatingClamping; // That's quite a big variable name though...   
-    private float rigidbodyVelocityY;
+    // Clamped Fall Speed
+    public float fallSpeed;
+    public float maxPhysicsFallSpeed;
 
+    private float rigidbodyVelocityY;
 
     private void Awake () {
         rb = GetComponent<Rigidbody2D>();
@@ -84,7 +83,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement () {
 
+        // Set the rigidbodyVelocityY variable as the rb.velocity.y
         rigidbodyVelocityY = rb.velocity.y;
+
 
         // GetAxis provides smoother but less snappier movement but GetAxisRaw made it look a little suspiciously snappy
         float horizontalMovement = Input.GetAxis("Horizontal"); 
@@ -120,19 +121,18 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SuperJump());
         }
 
-        #region Fall Speed Clamping
-
-        if (rb.velocity.y >= maxSpeedBeforeActivatingClamping) {
-            rigidbodyVelocityY = Mathf.Clamp(rb.velocity.y, minClampSpeed, maxClampSpeed);
-        }
-
-        #endregion
-
         #region Pulldown Ability 
 
         if ((Input.GetKey(Keybinds.instance.pulldownKey) || Input.GetKey(Keybinds.instance.altPulldownKey))) {
             rb.AddForce(Vector2.down * pulldownForce, ForceMode2D.Force);
         }
+
+        #endregion
+
+        #region Clamp Fall Speed
+
+        if (rigidbodyVelocityY >= maxPhysicsFallSpeed)
+            rigidbodyVelocityY = fallSpeed;
 
         #endregion
 
@@ -173,6 +173,11 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("End Trigger")) {
             GameManager.instance.Complete();
         }
+
+
+        // Switching Virtual Camera Priority 
+        if (col.CompareTag("Switch Virtual Camera"))
+            SwitchCamera.instance.SetPriority();
     }
 
 
