@@ -26,14 +26,7 @@ public class GameManager : MonoBehaviour {
 
 
     private void Update () {
-        QuickRestart();
-
-        if (pmUI.activeInHierarchy) {
-            indi.SetActive(false);
-        }
-        else {
-            indi.SetActive(true);
-        }
+        QuickRestart(); 
     }
 
     private void QuickRestart () {
@@ -51,6 +44,7 @@ public class GameManager : MonoBehaviour {
         pmUI.SetActive(false);
         Time.timeScale = 1f;
         Destroy(player);
+        Cursor.visible = true;
     }
 
     public void EndGame () {
@@ -61,5 +55,6 @@ public class GameManager : MonoBehaviour {
         pmUI.SetActive(false);
         Time.timeScale = 1f;
         Destroy(player);
+        Cursor.visible = true;
     }
 }
