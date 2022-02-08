@@ -52,6 +52,12 @@ public class PlayerController : MonoBehaviour
 
     private float rigidbodyVelocityY;
 
+
+    [Header("GFX")]
+    public GameObject groundJumpParticle;
+    public GameObject groundLandingParticle;
+
+
     private void Awake () {
         rb = GetComponent<Rigidbody2D>();
     }
@@ -99,6 +105,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKey(Keybinds.instance.jump) || Input.GetKey(Keybinds.instance.altJump)) && isGrounded) {
             // Add an upwards force to the rigidbody's velocity
             rb.velocity = Vector2.up * jumpForce;
+            Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
         }
 
         #endregion
@@ -142,6 +149,7 @@ public class PlayerController : MonoBehaviour
 
         canSuperJump = false;
         rb.velocity = Vector2.up * superJumpForce;
+        Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
 
         yield return new WaitForSeconds(superJumpCooldown);
 
@@ -154,6 +162,10 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.CompareTag("Harmful Platform")) {
             Die();
+        }
+
+        if (col.gameObject.CompareTag("GroundObject")) {
+            Instantiate(groundLandingParticle, groundCheck.position, Quaternion.identity);
         }
 
     }
@@ -178,6 +190,7 @@ public class PlayerController : MonoBehaviour
         // Switching Virtual Camera Priority 
         if (col.CompareTag("Switch Virtual Camera"))
             SwitchCamera.instance.SetPriority();
+
     }
 
 

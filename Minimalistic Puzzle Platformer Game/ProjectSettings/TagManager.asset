@@ -11,6 +11,7 @@ TagManager:
   - Teleporter
   - End Trigger
   - Switch Virtual Camera
+  - GroundObject
   layers:
   - Default
   - TransparentFX
