@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using EZCameraShake;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,6 +40,18 @@ public class PlayerController : MonoBehaviour
     public float pulldownForce;
 
 
+    [Header("MOVEMENT/FALL")]
+    public float fallThreshold;
+
+    private bool previouslyGrounded;
+
+    // Camera Shake
+    public float magnitude;
+    public float roughness;
+    public float fadeInTime;
+    public float fadeOutTime;
+
+
     [Header("TELEPORTATION")] 
     public GameObject prompt;
     private GameObject currentTeleporter;
@@ -46,17 +59,10 @@ public class PlayerController : MonoBehaviour
     private bool canTeleport = true;
 
 
-    [Header("PHYSICS")]
-
-    // Clamped Fall Speed
-    public float fallSpeed;
-    public float maxPhysicsFallSpeed;
-
-    private float rigidbodyVelocityY;
-
-
     [Header("GFX")]
     public float particleDestructionDelay;
+
+    private Quaternion particleShapeQuat;
 
     public GameObject groundJumpParticle;
     public GameObject groundLandingParticle;
@@ -64,12 +70,17 @@ public class PlayerController : MonoBehaviour
 
     private void Awake () {
         rb = GetComponent<Rigidbody2D>();
+
+        particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
     }
 
     
     private void Update () {
         // Shoot a raycast downwards from our groundCheck.position
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkHeight, whatIsGround);
+
+        // Make a new previouslyGrounded variable for checking fall damage
+        previouslyGrounded = isGrounded;
     }
 
 
@@ -77,7 +88,22 @@ public class PlayerController : MonoBehaviour
         // Call Methods
         HandleMovement();
         HandleTeleportation();
+        HandleFalling();
     }
+
+
+    private void HandleFalling () {
+        if (!previouslyGrounded && isGrounded) {
+            // Check whether the rigidbody's velocity was greater than our NEGATIVE fall damage threshold
+            if (rb.velocity.y > -fallThreshold) {
+                // Apply some slowness to the player if it has fallen higher than ou
+
+                // Use EZCameraShake to shake the camera once
+                CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);   
+            }
+        }
+    }
+
 
     private void HandleTeleportation () {
 
@@ -93,10 +119,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement () {
 
-        // Set the rigidbodyVelocityY variable as the rb.velocity.y
-        rigidbodyVelocityY = rb.velocity.y;
-
-
         // GetAxis provides smoother but less snappier movement but GetAxisRaw made it look a little suspiciously snappy
         float horizontalMovement = Input.GetAxis("Horizontal"); 
 
@@ -109,7 +131,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKey(Keybinds.instance.jump) || Input.GetKey(Keybinds.instance.altJump)) && isGrounded) {
             // Add an upwards force to the rigidbody's velocity
             rb.velocity = Vector2.up * jumpForce;
-            GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
+            GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
             Destroy(jp, particleDestructionDelay);
         }
 
@@ -141,20 +163,13 @@ public class PlayerController : MonoBehaviour
 
         #endregion
 
-        #region Clamp Fall Speed
-
-        if (rigidbodyVelocityY >= maxPhysicsFallSpeed)
-            rigidbodyVelocityY = fallSpeed;
-
-        #endregion
-
     }
 
     private IEnumerator SuperJump () {
 
         canSuperJump = false;
         rb.velocity = Vector2.up * superJumpForce;
-        GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
+        GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
         Destroy(jp, particleDestructionDelay);
 
         yield return new WaitForSeconds(superJumpCooldown);
@@ -171,7 +186,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (col.gameObject.CompareTag("GroundObject")) {
-            GameObject lp = Instantiate(groundLandingParticle, groundCheck.position, Quaternion.identity);
+            GameObject lp = Instantiate(groundLandingParticle, groundCheck.position, particleShapeQuat);
             Destroy(lp, particleDestructionDelay);
         }
 
