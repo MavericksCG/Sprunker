@@ -13,7 +13,6 @@ public class SpeedCounter : MonoBehaviour {
         if (player != null) {
             speedUI.text = "Speed while moving : " + controller.moveSpeed.ToString();
         } else {
-            Debug.LogWarning("Player is null");
             return;
         }
     }

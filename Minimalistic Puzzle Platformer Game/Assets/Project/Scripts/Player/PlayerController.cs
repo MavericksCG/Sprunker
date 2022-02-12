@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("GFX")]
+    public float particleDestructionDelay;
+
     public GameObject groundJumpParticle;
     public GameObject groundLandingParticle;
 
@@ -107,7 +109,8 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKey(Keybinds.instance.jump) || Input.GetKey(Keybinds.instance.altJump)) && isGrounded) {
             // Add an upwards force to the rigidbody's velocity
             rb.velocity = Vector2.up * jumpForce;
-            Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
+            GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
+            Destroy(jp, particleDestructionDelay);
         }
 
         #endregion
@@ -151,7 +154,8 @@ public class PlayerController : MonoBehaviour
 
         canSuperJump = false;
         rb.velocity = Vector2.up * superJumpForce;
-        Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
+        GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, Quaternion.identity);
+        Destroy(jp, particleDestructionDelay);
 
         yield return new WaitForSeconds(superJumpCooldown);
 
@@ -167,7 +171,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (col.gameObject.CompareTag("GroundObject")) {
-            Instantiate(groundLandingParticle, groundCheck.position, Quaternion.identity);
+            GameObject lp = Instantiate(groundLandingParticle, groundCheck.position, Quaternion.identity);
+            Destroy(lp, particleDestructionDelay);
         }
 
     }
