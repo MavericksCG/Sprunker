@@ -12,6 +12,8 @@ TagManager:
   - End Trigger
   - Switch Virtual Camera
   - GroundObject
+  - End Platform Base
+  - End Platform Cover
   layers:
   - Default
   - TransparentFX

@@ -52,12 +52,15 @@ public class PlayerController : MonoBehaviour
 
     private Quaternion particleShapeQuat;
 
+    // Particles
     public GameObject groundJumpParticle;
-    public GameObject groundLandingParticle;
-    public GameObject pillarLandingParticle;
-    public GameObject platformLandingParticle;
-    public GameObject harmfulPlatformLandingParticle;
-
+    public GameObject groundLandCollisionParticle;
+    public GameObject pillarCollisionParticle;
+    public GameObject platformCollisionParticle;
+    public GameObject harmfulPlatformCollisionParticle;
+    public GameObject endTriggerPlatformCollisionParticle;
+    public GameObject endTriggerCollisionParticle;
+    public GameObject endTriggerCoverCollisionParticle;
 
     // Camera Shake
     public float magnitude;
@@ -174,23 +177,38 @@ public class PlayerController : MonoBehaviour
         #region Particles
 
         if (col.gameObject.CompareTag("GroundObject")) {
-            GameObject lp = Instantiate(groundLandingParticle, groundCheck.position, particleShapeQuat);
-            Destroy(lp, particleDestructionDelay);
+            GameObject cp = Instantiate(groundLandCollisionParticle, groundCheck.position, particleShapeQuat);
+            Destroy(cp, particleDestructionDelay);
         }
 
         if (col.gameObject.CompareTag("Pillar")) {
-            GameObject lp = Instantiate(pillarLandingParticle, groundCheck.position, particleShapeQuat);
-            Destroy(lp, particleDestructionDelay);
+            GameObject cp = Instantiate(pillarCollisionParticle, groundCheck.position, particleShapeQuat);
+            Destroy(cp, particleDestructionDelay);
         }
 
         if (col.gameObject.CompareTag("Platform")) {
-            GameObject lp = Instantiate(platformLandingParticle, groundCheck.position, particleShapeQuat);
-            Destroy(lp, particleDestructionDelay);
+            GameObject cp = Instantiate(platformCollisionParticle, groundCheck.position, particleShapeQuat);
+            Destroy(cp, particleDestructionDelay);
         }
 
         if (col.gameObject.CompareTag("Harmful Platform")) {
-            GameObject lp = Instantiate(harmfulPlatformLandingParticle, groundCheck.position, particleShapeQuat);
-            Destroy(lp, particleDestructionDelay);
+            GameObject cp = Instantiate(harmfulPlatformCollisionParticle, groundCheck.position, particleShapeQuat);
+            Destroy(cp, particleDestructionDelay);
+        }
+
+        if (col.gameObject.CompareTag("End Platform Base")) {
+            GameObject cp = Instantiate(endTriggerPlatformCollisionParticle, groundCheck.position, particleShapeQuat);
+            Destroy(cp, particleDestructionDelay);
+        }
+
+        if (col.gameObject.CompareTag("End Trigger")) {
+            GameObject cp = Instantiate(endTriggerCollisionParticle, groundCheck.position, particleShapeQuat);
+            Destroy(cp, particleDestructionDelay);
+        }
+
+        if (col.gameObject.CompareTag("End Platform Cover")) {
+            GameObject cp = Instantiate(endTriggerCoverCollisionParticle, groundCheck.position, particleShapeQuat);
+            Destroy(cp, particleDestructionDelay);
         }
 
         #endregion
