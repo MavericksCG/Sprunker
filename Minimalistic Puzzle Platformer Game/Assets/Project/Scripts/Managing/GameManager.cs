@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 
     public Color bgColour;
 
-    [Range(0f, 1f)] [Tooltip("How fast the background colour should interpolate to the custom colour")] public float colorLerpSpeed;
+    [Tooltip("How fast the background colour should interpolate to the custom colour")] public float colorLerpSpeed;
 
 
     private void Awake () {
@@ -44,17 +44,14 @@ public class GameManager : MonoBehaviour {
         pmUI.SetActive(false);
         Time.timeScale = 1f;
         Destroy(player);
-        Cursor.visible = true;
     }
 
     public void EndGame () {
-        Destroy(env, 0.5f);
         Camera.main.backgroundColor = Color.Lerp(Camera.main.backgroundColor, bgColour, colorLerpSpeed * Time.deltaTime);
         goUI.SetActive(true);
         indi.SetActive(false);
         pmUI.SetActive(false);
         Time.timeScale = 1f;
         Destroy(player);
-        Cursor.visible = true;
     }
 }

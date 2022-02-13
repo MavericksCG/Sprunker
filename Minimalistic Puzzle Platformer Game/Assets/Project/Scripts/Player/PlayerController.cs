@@ -40,18 +40,6 @@ public class PlayerController : MonoBehaviour
     public float pulldownForce;
 
 
-    [Header("MOVEMENT/FALL")]
-    public float fallThreshold;
-
-    private bool previouslyGrounded;
-
-    // Camera Shake
-    public float magnitude;
-    public float roughness;
-    public float fadeInTime;
-    public float fadeOutTime;
-
-
     [Header("TELEPORTATION")] 
     public GameObject prompt;
     private GameObject currentTeleporter;
@@ -66,6 +54,16 @@ public class PlayerController : MonoBehaviour
 
     public GameObject groundJumpParticle;
     public GameObject groundLandingParticle;
+    public GameObject pillarLandingParticle;
+    public GameObject platformLandingParticle;
+    public GameObject harmfulPlatformLandingParticle;
+
+
+    // Camera Shake
+    public float magnitude;
+    public float roughness;
+    public float fadeInTime;
+    public float fadeOutTime;
 
 
     private void Awake () {
@@ -78,9 +76,6 @@ public class PlayerController : MonoBehaviour
     private void Update () {
         // Shoot a raycast downwards from our groundCheck.position
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkHeight, whatIsGround);
-
-        // Make a new previouslyGrounded variable for checking fall damage
-        previouslyGrounded = isGrounded;
     }
 
 
@@ -88,20 +83,6 @@ public class PlayerController : MonoBehaviour
         // Call Methods
         HandleMovement();
         HandleTeleportation();
-        HandleFalling();
-    }
-
-
-    private void HandleFalling () {
-        if (!previouslyGrounded && isGrounded) {
-            // Check whether the rigidbody's velocity was greater than our NEGATIVE fall damage threshold
-            if (rb.velocity.y > -fallThreshold) {
-                // Apply some slowness to the player if it has fallen higher than ou
-
-                // Use EZCameraShake to shake the camera once
-                CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);   
-            }
-        }
     }
 
 
@@ -133,6 +114,9 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
             GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
             Destroy(jp, particleDestructionDelay);
+
+            // Game Juice
+            CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
         }
 
         #endregion
@@ -171,6 +155,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.up * superJumpForce;
         GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
         Destroy(jp, particleDestructionDelay);
+        CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
 
         yield return new WaitForSeconds(superJumpCooldown);
 
@@ -185,11 +170,30 @@ public class PlayerController : MonoBehaviour
             Die();
         }
 
+
+        #region Particles
+
         if (col.gameObject.CompareTag("GroundObject")) {
             GameObject lp = Instantiate(groundLandingParticle, groundCheck.position, particleShapeQuat);
             Destroy(lp, particleDestructionDelay);
         }
 
+        if (col.gameObject.CompareTag("Pillar")) {
+            GameObject lp = Instantiate(pillarLandingParticle, groundCheck.position, particleShapeQuat);
+            Destroy(lp, particleDestructionDelay);
+        }
+
+        if (col.gameObject.CompareTag("Platform")) {
+            GameObject lp = Instantiate(platformLandingParticle, groundCheck.position, particleShapeQuat);
+            Destroy(lp, particleDestructionDelay);
+        }
+
+        if (col.gameObject.CompareTag("Harmful Platform")) {
+            GameObject lp = Instantiate(harmfulPlatformLandingParticle, groundCheck.position, particleShapeQuat);
+            Destroy(lp, particleDestructionDelay);
+        }
+
+        #endregion
     }
 
 
