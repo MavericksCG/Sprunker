@@ -173,7 +173,6 @@ public class PlayerController : MonoBehaviour
             Die();
         }
 
-
         #region Particles
 
         if (col.gameObject.CompareTag("GroundObject")) {
