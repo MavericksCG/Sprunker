@@ -10,6 +10,9 @@ public class SlowMotion : MonoBehaviour {
         Chromatic Abberation - 0.02 
     */
 
+    [HideInInspector] public bool slowMotionActive;
+
+
     [Header("EFFECTS")] [Space]
     public PostProcessVolume volume;
 
@@ -52,6 +55,8 @@ public class SlowMotion : MonoBehaviour {
 
         if (Input.GetKey(Keybinds.instance.slowMotion) && volume.profile.TryGetSettings(out b) && volume.profile.TryGetSettings(out vg) && volume.profile.TryGetSettings(out ca) && volume.profile.TryGetSettings(out ld)) {
 
+            slowMotionActive = true;
+
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0.2f, timeScaleSmoothing);
 
             vg.intensity.value = Mathf.Lerp(vg.intensity.value, desiredVignetteAmount, vignetteSmoothSpeed);
@@ -61,6 +66,8 @@ public class SlowMotion : MonoBehaviour {
 
         }
         else if (volume.profile.TryGetSettings(out b) && volume.profile.TryGetSettings(out vg) && volume.profile.TryGetSettings(out ca) && volume.profile.TryGetSettings(out ld)) {
+
+            slowMotionActive = false;
 
             Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, timeScaleSmoothing);
 

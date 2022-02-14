@@ -1,10 +1,10 @@
+using EZCameraShake;
 using System.Collections;
 using UnityEngine;
-using EZCameraShake;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     public static PlayerController instance;
+    private SlowMotion slowMotion;
 
     [Header("MOVEMENT")]
     public float moveSpeed;
@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask whatIsGround;
 
+    public AudioSource jumpSFX;
+
 
     [Header("MOVEMENT/SPRINTING")]
     public float normalSpeed;
@@ -35,12 +37,14 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool canSuperJump = true;
 
+    public AudioSource superJumpSFX;
+
 
     [Header("MOVEMENT/PULLDOWN")]
     public float pulldownForce;
 
 
-    [Header("TELEPORTATION")] 
+    [Header("TELEPORTATION")]
     public GameObject prompt;
     private GameObject currentTeleporter;
 
@@ -71,11 +75,12 @@ public class PlayerController : MonoBehaviour
 
     private void Awake () {
         rb = GetComponent<Rigidbody2D>();
+        slowMotion = GetComponent<SlowMotion>();
 
         particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
     }
 
-    
+
     private void Update () {
         // Shoot a raycast downwards from our groundCheck.position
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkHeight, whatIsGround);
@@ -97,14 +102,14 @@ public class PlayerController : MonoBehaviour
                 rb.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
             }
         }
-        
+
     }
-    
+
 
     private void HandleMovement () {
 
         // GetAxis provides smoother but less snappier movement but GetAxisRaw made it look a little suspiciously snappy
-        float horizontalMovement = Input.GetAxis("Horizontal"); 
+        float horizontalMovement = Input.GetAxis("Horizontal");
 
         // Create a new Vector2 and send the position to our rigidbody's position
         Vector2 moveDir = new Vector2(horizontalMovement * moveSpeed, 0f) * Time.deltaTime;
@@ -120,17 +125,21 @@ public class PlayerController : MonoBehaviour
 
             // Game Juice
             CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
+
+            // Play the jump sound effect
+            jumpSFX.Play();
         }
 
         #endregion
 
 
         #region Sprinting
-        
+
         if ((Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint))) {
             // Interpolate moveSpeed to sprintSpeed
-            moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, accelerationSpeed); 
-        } else {
+            moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, accelerationSpeed);
+        }
+        else {
             // Interpolate moveSpeed to normalSpeed
             moveSpeed = Mathf.Lerp(moveSpeed, normalSpeed, accelerationSpeed);
         }
@@ -159,6 +168,7 @@ public class PlayerController : MonoBehaviour
         GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
         Destroy(jp, particleDestructionDelay);
         CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
+        superJumpSFX.Play();
 
         yield return new WaitForSeconds(superJumpCooldown);
 
@@ -234,6 +244,9 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("Switch Virtual Camera"))
             SwitchCamera.instance.SetPriority();
 
+        if (col.CompareTag("Switch Virtual Camera 02"))
+            SwitchCamera.instance.SetPriority();
+
     }
 
 
@@ -242,10 +255,10 @@ public class PlayerController : MonoBehaviour
         if (col.CompareTag("Teleporter") && canTeleport) {
             prompt.SetActive(false);
             currentTeleporter = null;
-        } 
+        }
         else if (col.CompareTag("Teleporter") && !canTeleport)
             Destroy(prompt);
-        
+
     }
 
 
