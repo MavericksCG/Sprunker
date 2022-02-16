@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float moveSpeed;
 
     private Rigidbody2D rb;
+    private Vector2 moveDir;
 
 
     [Header("MOVEMENT/JUMPING")]
@@ -44,6 +45,16 @@ public class PlayerController : MonoBehaviour {
     public float pulldownForce;
 
 
+    [Header("MOVEMENT/DASH")]
+    [SerializeField] private float dashSpeed;
+    [SerializeField] [Range(0f, 120f)] private float dashCooldown;
+
+    private int dir;
+
+    private bool canDash = true;
+    
+
+
     [Header("TELEPORTATION")]
     public GameObject prompt;
     private GameObject currentTeleporter;
@@ -55,7 +66,7 @@ public class PlayerController : MonoBehaviour {
     public float particleDestructionDelay;
 
     private Quaternion particleShapeQuat;
-
+    
     // Particles
     public GameObject groundJumpParticle;
     public GameObject groundLandCollisionParticle;
@@ -112,7 +123,7 @@ public class PlayerController : MonoBehaviour {
         float horizontalMovement = Input.GetAxis("Horizontal");
 
         // Create a new Vector2 and send the position to our rigidbody's position
-        Vector2 moveDir = new Vector2(horizontalMovement * moveSpeed, 0f) * Time.deltaTime;
+        moveDir = new Vector2(horizontalMovement * moveSpeed, 0f) * Time.deltaTime;
         rb.position += moveDir;
 
         #region Jumping
@@ -159,7 +170,47 @@ public class PlayerController : MonoBehaviour {
 
         #endregion
 
+        #region Dashing
+
+        if (Input.GetKey(Keybinds.instance.dashKey) && canDash) {
+            StartCoroutine(Dash());
+        }
+
+        // If Statements to check which input key was pressed
+        if (Input.GetKey(KeyCode.D)) {
+            dir = 1;
+            Debug.Log(dir);
+        }
+        if (Input.GetKey(KeyCode.A)) {
+            dir = 2;
+            Debug.Log(dir);
+        }
+
+
+        #endregion
+
     }
+
+
+    private IEnumerator Dash () {
+        switch (dir) {
+            case 1:
+                rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
+                break;
+
+            case 2:
+                rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
+                break;
+        }
+
+        canDash = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+
+        canDash = true;
+
+    }
+
 
     private IEnumerator SuperJump () {
 
@@ -243,10 +294,6 @@ public class PlayerController : MonoBehaviour {
         // Switching Virtual Camera Priority 
         if (col.CompareTag("Switch Virtual Camera"))
             SwitchCamera.instance.SetPriority();
-
-        if (col.CompareTag("Switch Virtual Camera 02"))
-            SwitchCamera.instance.SetPriority();
-
     }
 
 

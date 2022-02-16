@@ -1,57 +1,77 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour {
 
-	[Header("VARIABLES")] 
-	[HideInInspector] public bool paused = false;
-	
-	public GameObject pausedUI;
-	public GameObject player;
+    [Header("References and Variables")]
+    public GameObject pausedUI;
+    public TextMeshProUGUI randomPausedTextUI;
 
-	public float desiredTimeScale;
-	
-	
-	// Pausing
-	private void Start () {
-		pausedUI.SetActive(false);
-	}
+    [Range(0f, 1f)] [SerializeField] private float timeScaleLerpSpeed;
 
-	private void Update () {
-		if (Input.GetKeyDown(Keybinds.instance.pauseOrResume)) {
-			if (paused)
-				Resume();
-			else
-				Pause();
-		}
-	}
+    private static bool paused = false;
 
-	private void Resume () {
-		paused = false;
-		pausedUI.SetActive(false);
-		Time.timeScale = 1f;
-		player.SetActive(true);
-	}
+    public string[] randomPausedText;
 
-	private void Pause () {
-		paused = true;
-		pausedUI.SetActive(true);
-		Time.timeScale = desiredTimeScale;
-		player.SetActive(false);
-	}
-	
-	
-	// Button Handling 
-	public void ReturnToDesktop () {
-		Application.Quit();
-	}
 
-	public void ReturnToMainMenu () {
-		print("placeholder");
-	}
+    private void Start () {
+        ChooseRandomText();
+    }
 
-	public void RestartCurrentLevel () {
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-	}
+    private void Update () {
+        if (Input.GetKeyDown(Keybinds.instance.pauseOrResume)) {
+            if (paused) Resume(); else Pause();
+        }
+    }
 
+    #region Pausing and Resuming
+
+    private void Resume () {
+        pausedUI.SetActive(false);
+        paused = false;
+        Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, timeScaleLerpSpeed);
+    }
+
+    private void Pause () {
+        pausedUI.SetActive(true);
+        paused = true;
+        Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, timeScaleLerpSpeed);
+    }
+
+    #endregion
+
+
+    #region Button Handling
+
+    public void Restart () {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ExitToDesktop () {
+        Application.Quit();
+    }
+
+    public void ExitToMainMenu () {
+        print("Loading Main Menu...");
+    }
+
+    public void OpenSettings () {
+        print("Opening Settings Menu...");
+    }
+
+    #endregion
+
+    #region Miscellaneous 
+
+    public void ChooseRandomText () {
+        int textIndex = Random.Range(0, randomPausedText.Length);
+
+        string t = randomPausedText[textIndex];
+        randomPausedTextUI.text = t;
+        
+    }
+
+    #endregion
 }
