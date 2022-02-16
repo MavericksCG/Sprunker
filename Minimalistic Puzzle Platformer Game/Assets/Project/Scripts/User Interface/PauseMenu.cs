@@ -9,35 +9,43 @@ public class PauseMenu : MonoBehaviour {
     public GameObject pausedUI;
     public TextMeshProUGUI randomPausedTextUI;
 
-    [Range(0f, 1f)] [SerializeField] private float timeScaleLerpSpeed;
-
     private static bool paused = false;
 
     public string[] randomPausedText;
 
+    private SlowMotion slowMotion;
+
 
     private void Start () {
         ChooseRandomText();
+
+        slowMotion = FindObjectOfType<SlowMotion>();
     }
 
     private void Update () {
         if (Input.GetKeyDown(Keybinds.instance.pauseOrResume)) {
             if (paused) Resume(); else Pause();
         }
+
+        if (pausedUI.activeInHierarchy) {
+            Time.timeScale = 0f;
+        }
     }
 
     #region Pausing and Resuming
 
-    private void Resume () {
+    public void Resume () {
         pausedUI.SetActive(false);
         paused = false;
-        Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, timeScaleLerpSpeed);
+        Time.timeScale = 1f;
+        slowMotion.enabled = true;
     }
 
     private void Pause () {
         pausedUI.SetActive(true);
         paused = true;
-        Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, timeScaleLerpSpeed);
+        Time.timeScale = 0f;
+        slowMotion.enabled = false;
     }
 
     #endregion
@@ -54,11 +62,11 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void ExitToMainMenu () {
-        print("Loading Main Menu...");
+        Debug.Log("Loading Main Menu...");
     }
 
     public void OpenSettings () {
-        print("Opening Settings Menu...");
+        Debug.Log("Opening Settings Menu...");
     }
 
     #endregion

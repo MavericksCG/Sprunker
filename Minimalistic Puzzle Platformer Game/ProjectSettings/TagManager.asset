@@ -15,6 +15,7 @@ TagManager:
   - End Platform Base
   - End Platform Cover
   - Switch Virtual Camera 02
+  - Music Object
   layers:
   - Default
   - TransparentFX

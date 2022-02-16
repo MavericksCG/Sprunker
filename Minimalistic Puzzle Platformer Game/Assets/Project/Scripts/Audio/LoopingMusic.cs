@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class LoopingMusic : MonoBehaviour {
 
+    private static LoopingMusic instance;
+
     private void Awake () {
-        GameObject[] musicObjects = GameObject.FindGameObjectsWithTag("Music Object");
-        if (musicObjects.Length > 1) {
+        if (instance == null) {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else {
             Destroy(gameObject);
         }
-
-        DontDestroyOnLoad(gameObject);
     }
-
 }
