@@ -208,7 +208,6 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
-
     }
 
 
