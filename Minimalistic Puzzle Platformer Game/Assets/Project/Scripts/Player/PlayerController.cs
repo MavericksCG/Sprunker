@@ -52,7 +52,15 @@ public class PlayerController : MonoBehaviour {
     private int dir;
 
     private bool canDash = true;
-    
+
+    [SerializeField] private AudioSource dashSFX;
+
+
+    [Header("MOVEMENT/CROUCHING")] 
+    [SerializeField] private Vector3 crouchSize;
+    private Vector3 currentSize;
+
+    [SerializeField] private float sizeSmoothing;
 
 
     [Header("TELEPORTATION")]
@@ -82,13 +90,18 @@ public class PlayerController : MonoBehaviour {
     public float roughness;
     public float fadeInTime;
     public float fadeOutTime;
-
-
+    
+    
     private void Awake () {
+        // Get components
         rb = GetComponent<Rigidbody2D>();
         slowMotion = GetComponent<SlowMotion>();
-
+        
+        // Set a quaternion for all of the particle rotations
         particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
+        
+        // Set the currentSize Vector
+        currentSize = transform.localScale;
     }
 
 
@@ -122,7 +135,7 @@ public class PlayerController : MonoBehaviour {
         // GetAxis provides smoother but less snappier movement but GetAxisRaw made it look a little suspiciously snappy
         float horizontalMovement = Input.GetAxis("Horizontal");
 
-        // Create a new Vector2 and send the position to our rigidbody's position
+        // Create a new Vector2 and send the position data to our rigidbody's position
         moveDir = new Vector2(horizontalMovement * moveSpeed, 0f) * Time.deltaTime;
         rb.position += moveDir;
 
@@ -189,10 +202,21 @@ public class PlayerController : MonoBehaviour {
 
         #endregion
 
+        #region Crouching
+
+        if (Input.GetKey(Keybinds.instance.crouchKey)) {
+            transform.localScale = crouchSize;
+        }
+        else {
+            transform.localScale = currentSize;
+        }
+
+        #endregion
     }
 
-
     private IEnumerator Dash () {
+        
+        // Check current movement direction using
         switch (dir) {
             case 1:
                 rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
@@ -202,7 +226,8 @@ public class PlayerController : MonoBehaviour {
                 rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
                 break;
         }
-
+        
+        dashSFX.Play();
         canDash = false;
 
         yield return new WaitForSeconds(dashCooldown);

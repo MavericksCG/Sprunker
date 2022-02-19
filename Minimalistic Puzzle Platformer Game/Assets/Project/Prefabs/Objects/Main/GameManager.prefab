@@ -47,7 +47,11 @@ MonoBehaviour:
   goUI: {fileID: 0}
   indi: {fileID: 0}
   pmUI: {fileID: 0}
+  pmObj: {fileID: 0}
   player: {fileID: 0}
   env: {fileID: 0}
+  audio: {fileID: 0}
   bgColour: {r: 0.9607843, g: 0.9647059, b: 0.98039216, a: 1}
-  colorLerpSpeed: 1
+  colorLerpSpeed: 6
+  audioLerpSpeed: 0.062
+  pitchWhenPauseMenuIsActive: 0.1

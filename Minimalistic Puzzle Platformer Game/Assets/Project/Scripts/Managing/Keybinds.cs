@@ -31,4 +31,6 @@ public class Keybinds : MonoBehaviour
 
     public KeyCode dashKey = KeyCode.LeftAlt;
 
+    public KeyCode crouchKey = KeyCode.C;
+    public KeyCode altCrouchKey;
 }

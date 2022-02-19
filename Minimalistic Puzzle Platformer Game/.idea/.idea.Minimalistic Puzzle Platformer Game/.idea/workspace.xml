@@ -92,7 +92,7 @@
       <workItem from="1643466158270" duration="1851000" />
       <workItem from="1643513515329" duration="594000" />
       <workItem from="1643532006368" duration="748000" />
-      <workItem from="1645270714819" duration="1159000" />
+      <workItem from="1645270714819" duration="6286000" />
     </task>
     <servers />
   </component>
@@ -100,5 +100,24 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Project/Scripts/Player/PlayerController.cs</url>
+          <line>301</line>
+          <properties documentPath="C:\Users\aksha\Documents\GitHub\Sprunker\Minimalistic Puzzle Platformer Game\Assets\Project\Scripts\Player\PlayerController.cs" initialLine="280" containingFunctionPresentation="method 'OnTriggerEnter2D'">
+            <startOffsets>
+              <option value="8683" />
+            </startOffsets>
+            <endOffsets>
+              <option value="8684" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -18,11 +18,15 @@ public class SlowMotionAudioHandling : MonoBehaviour {
     }
 
     private void Update () {
+        // Loop through each audio source in the sources array
         foreach (AudioSource s in sources) {
+            // Check if slow motion is active
             if (slowMotion.slowMotionActive) {
+                // Change all pitches to pitchInSlowMotion
                 s.pitch = Mathf.Lerp(s.pitch, pitchInSlowMotion, audioLerpSpeed);
             }
             else {
+                // Change all pitches to 1(default)
                 s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
             }
         }
