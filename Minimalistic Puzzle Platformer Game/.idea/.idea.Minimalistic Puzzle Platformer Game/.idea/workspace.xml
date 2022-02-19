@@ -21,7 +21,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="rider.run.widget.enabled.cache" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
@@ -92,6 +92,7 @@
       <workItem from="1643466158270" duration="1851000" />
       <workItem from="1643513515329" duration="594000" />
       <workItem from="1643532006368" duration="748000" />
+      <workItem from="1645270714819" duration="1159000" />
     </task>
     <servers />
   </component>
