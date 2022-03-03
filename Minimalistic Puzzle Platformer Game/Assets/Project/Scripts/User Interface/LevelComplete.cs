@@ -1,68 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
-using TMPro;
 
 public class LevelComplete : MonoBehaviour {
+    
+    // Buttons
+    public void Continue () {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
-	[Header("Assignables")]
-	public TextMeshProUGUI randomTextUI;
-	
-	private int chance;
-	public int minimumChance;
-	public int maximumChance;
-	public int chanceToGetBoldText;
+    public void Retry () {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
-	public GameObject levelCompleteUI;
-	[Space]
-	public string[] randomText;
-	
+    public void ExitToMenu () {
+        Debug.Log("Loading Main Menu");
+    }
 
-	
-	// Miscellaneous
-	private void Start () { 
-		PickRandomText();
-	}
+    public void ExitToDesktop () {
+        Application.Quit();
+        Debug.Log("Quitting Game");
+    }
 
-
-	private void PickRandomText () {
-		
-		int index = Random.Range(0, randomText.Length);
-		string chooseRandomText = randomText[index];
-
-		randomTextUI.text = chooseRandomText;
-		
-		
-		// Random Chance for Bold Text
-		chance = Random.Range(minimumChance, maximumChance);
-		if (chance == chanceToGetBoldText) {
-			randomTextUI.text = "<b>poggers</b>";
-		}
-
-	}
-	
-	
-	// Handle Buttons
-	public void Continue () {
-		
-		levelCompleteUI.SetActive(false);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-		
-	}
-
-
-	public void Retry () {
-		
-		levelCompleteUI.SetActive(false);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		
-	}
-
-
-	public void Quit () {
-		
-		print("Quitting Game...");
-		Application.Quit();
-		
-	}
 }

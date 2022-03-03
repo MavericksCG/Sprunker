@@ -1,24 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
-using TMPro;
 
 public class PauseMenu : MonoBehaviour {
 
     [Header("References and Variables")]
     public GameObject pausedUI;
-    public TextMeshProUGUI randomPausedTextUI;
+    [SerializeField] private Animator pma;
 
     private static bool paused = false;
-
-    public string[] randomPausedText;
 
     private SlowMotion slowMotion;
 
 
     private void Start () {
-        ChooseRandomText();
-
         slowMotion = FindObjectOfType<SlowMotion>();
     }
 
@@ -26,10 +20,14 @@ public class PauseMenu : MonoBehaviour {
         if (Input.GetKeyDown(Keybinds.instance.pauseOrResume)) {
             if (paused) Resume(); else Pause();
         }
-
-        if (pausedUI.activeInHierarchy) {
-            Time.timeScale = 0f;
+        
+        // Null check 
+        if (pausedUI != null) {
+            if (pausedUI.activeInHierarchy) {
+                Time.timeScale = 0f;
+            }
         }
+
     }
 
     #region Pausing and Resuming
@@ -38,14 +36,14 @@ public class PauseMenu : MonoBehaviour {
         pausedUI.SetActive(false);
         paused = false;
         Time.timeScale = 1f;
-        slowMotion.enabled = true;
+        pma.SetTrigger("close");
     }
 
     private void Pause () {
         pausedUI.SetActive(true);
         paused = true;
         Time.timeScale = 0f;
-        slowMotion.enabled = false;
+        pma.SetTrigger("pause");
     }
 
     #endregion
@@ -67,18 +65,6 @@ public class PauseMenu : MonoBehaviour {
 
     public void OpenSettings () {
         Debug.Log("Opening Settings Menu...");
-    }
-
-    #endregion
-
-    #region Miscellaneous 
-
-    public void ChooseRandomText () {
-        int textIndex = Random.Range(0, randomPausedText.Length);
-
-        string t = randomPausedText[textIndex];
-        randomPausedTextUI.text = t;
-        
     }
 
     #endregion

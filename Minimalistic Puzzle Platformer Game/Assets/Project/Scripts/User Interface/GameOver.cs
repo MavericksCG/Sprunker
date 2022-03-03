@@ -19,8 +19,6 @@ public class GameOver : MonoBehaviour {
 	public GameObject showButton;
 	public GameObject hideButton;
 
-	public Transform player;
-
 	[Space]
 	public string[] randomText;
 	

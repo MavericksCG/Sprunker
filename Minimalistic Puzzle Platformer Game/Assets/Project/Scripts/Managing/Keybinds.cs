@@ -30,7 +30,4 @@ public class Keybinds : MonoBehaviour
     public KeyCode altPulldownKey = KeyCode.DownArrow;
 
     public KeyCode dashKey = KeyCode.LeftAlt;
-
-    public KeyCode crouchKey = KeyCode.C;
-    public KeyCode altCrouchKey;
 }

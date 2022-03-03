@@ -7,8 +7,18 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/User Interface/SuperJumpIndicator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/Managing/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/Managing/Keybinds.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/User Interface/DashIndicator.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="243oxcAkMoLmc2F5SoQwvfddq81" />
   <component name="ProjectViewState">
@@ -20,6 +30,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="do_not_show_solution_notification" value="true" />
     <property name="rider.run.widget.enabled.cache" value="false" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -92,7 +103,25 @@
       <workItem from="1643466158270" duration="1851000" />
       <workItem from="1643513515329" duration="594000" />
       <workItem from="1643532006368" duration="748000" />
-      <workItem from="1645270714819" duration="6286000" />
+      <workItem from="1645270714819" duration="7062000" />
+      <workItem from="1645295400078" duration="1923000" />
+      <workItem from="1645329033370" duration="261000" />
+      <workItem from="1645329551086" duration="2099000" />
+      <workItem from="1645364305104" duration="275000" />
+      <workItem from="1645585371407" duration="1866000" />
+      <workItem from="1645621240691" duration="2884000" />
+      <workItem from="1645760994297" duration="1722000" />
+      <workItem from="1645798446333" duration="531000" />
+      <workItem from="1645804616064" duration="1422000" />
+      <workItem from="1645897742685" duration="662000" />
+      <workItem from="1645947731741" duration="3415000" />
+      <workItem from="1646041522159" duration="2363000" />
+      <workItem from="1646133725335" duration="2209000" />
+      <workItem from="1646144088149" duration="1278000" />
+      <workItem from="1646151624146" duration="1384000" />
+      <workItem from="1646206742076" duration="3032000" />
+      <workItem from="1646229510901" duration="1485000" />
+      <workItem from="1646283596434" duration="3373000" />
     </task>
     <servers />
   </component>
@@ -100,24 +129,5 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Project/Scripts/Player/PlayerController.cs</url>
-          <line>301</line>
-          <properties documentPath="C:\Users\aksha\Documents\GitHub\Sprunker\Minimalistic Puzzle Platformer Game\Assets\Project\Scripts\Player\PlayerController.cs" initialLine="280" containingFunctionPresentation="method 'OnTriggerEnter2D'">
-            <startOffsets>
-              <option value="8683" />
-            </startOffsets>
-            <endOffsets>
-              <option value="8684" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

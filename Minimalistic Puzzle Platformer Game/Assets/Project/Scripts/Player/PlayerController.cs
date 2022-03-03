@@ -1,4 +1,3 @@
-using EZCameraShake;
 using System.Collections;
 using UnityEngine;
 
@@ -48,19 +47,12 @@ public class PlayerController : MonoBehaviour {
     [Header("MOVEMENT/DASH")]
     [SerializeField] private float dashSpeed;
     [SerializeField] [Range(0f, 120f)] private float dashCooldown;
-
+    
     private int dir;
 
-    private bool canDash = true;
+    [HideInInspector] public bool canDash = true;
 
     [SerializeField] private AudioSource dashSFX;
-
-
-    [Header("MOVEMENT/CROUCHING")] 
-    [SerializeField] private Vector3 crouchSize;
-    private Vector3 currentSize;
-
-    [SerializeField] private float sizeSmoothing;
 
 
     [Header("TELEPORTATION")]
@@ -75,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 
     private Quaternion particleShapeQuat;
     
-    // Particles
+    #region Particles
     public GameObject groundJumpParticle;
     public GameObject groundLandCollisionParticle;
     public GameObject pillarCollisionParticle;
@@ -84,14 +76,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject endTriggerPlatformCollisionParticle;
     public GameObject endTriggerCollisionParticle;
     public GameObject endTriggerCoverCollisionParticle;
+    #endregion
 
-    // Camera Shake
-    public float magnitude;
-    public float roughness;
-    public float fadeInTime;
-    public float fadeOutTime;
-    
-    
     private void Awake () {
         // Get components
         rb = GetComponent<Rigidbody2D>();
@@ -100,8 +86,6 @@ public class PlayerController : MonoBehaviour {
         // Set a quaternion for all of the particle rotations
         particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
         
-        // Set the currentSize Vector
-        currentSize = transform.localScale;
     }
 
 
@@ -147,9 +131,6 @@ public class PlayerController : MonoBehaviour {
             GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
             Destroy(jp, particleDestructionDelay);
 
-            // Game Juice
-            CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
-
             // Play the jump sound effect
             jumpSFX.Play();
         }
@@ -192,27 +173,21 @@ public class PlayerController : MonoBehaviour {
         // If Statements to check which input key was pressed
         if (Input.GetKey(KeyCode.D)) {
             dir = 1;
-            Debug.Log(dir);
         }
         if (Input.GetKey(KeyCode.A)) {
             dir = 2;
-            Debug.Log(dir);
+        }
+        
+        // Set the dir variable to a random amount if no key is being pressed.
+        if (dir == 0) {
+            dir = Random.Range(1, 2);
         }
 
 
         #endregion
-
-        #region Crouching
-
-        if (Input.GetKey(Keybinds.instance.crouchKey)) {
-            transform.localScale = crouchSize;
-        }
-        else {
-            transform.localScale = currentSize;
-        }
-
-        #endregion
+        
     }
+    
 
     private IEnumerator Dash () {
         
@@ -242,7 +217,6 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector2.up * superJumpForce;
         GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
         Destroy(jp, particleDestructionDelay);
-        CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
         superJumpSFX.Play();
 
         yield return new WaitForSeconds(superJumpCooldown);
@@ -318,6 +292,10 @@ public class PlayerController : MonoBehaviour {
         // Switching Virtual Camera Priority 
         if (col.CompareTag("Switch Virtual Camera"))
             SwitchCamera.instance.SetPriority();
+        
+        // Ground Contraction
+        if (col.CompareTag("Contract Ground"))
+            ContractGround.instance.Contract();
     }
 
 
@@ -336,5 +314,24 @@ public class PlayerController : MonoBehaviour {
     private void Die () {
         // Invoke the EndGame method in the GameManager
         GameManager.instance.EndGame();
+    }
+
+
+    public bool IsSprinting () {
+        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) && Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public bool HasJumped () {
+        if (!isGrounded) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

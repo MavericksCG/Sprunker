@@ -12,9 +12,9 @@ public class SuperJumpIndicator : MonoBehaviour {
 	private void Update () {
 		if (controller != null) {
 			if (controller.canSuperJump) {
-				superJumpIndicatorUI.text = "Super Jump State : <b><color=#00a8ff>AVAILABLE</color></b>";
+				superJumpIndicatorUI.text = "Super Jump State : <b>AVAILABLE</b>";
 			} else if (!controller.canSuperJump) {
-				superJumpIndicatorUI.text = "Super Jump State : <b><color=#273c75>UNAVAILABLE</color></b>";
+				superJumpIndicatorUI.text = "Super Jump State : <b>UNAVAILABLE</b>";
 			}
 		}
 		else {

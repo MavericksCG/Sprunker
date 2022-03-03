@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour {
     public GameObject lcUI;
     public GameObject goUI;
     public GameObject indi;
-    public GameObject pmUI;
     public GameObject pmObj;
+    public GameObject dindi;
     
     public GameObject player;
     public GameObject env;
@@ -20,17 +20,20 @@ public class GameManager : MonoBehaviour {
 
     private AudioSource[] sources;
     
-    public Color bgColour;
-
-    [Tooltip("How fast the background colour should interpolate to the custom colour")] public float colorLerpSpeed;
     [Range(0f, 1f)] [SerializeField] private float audioLerpSpeed;
     [SerializeField] private float pitchWhenPauseMenuIsActive;
+
+
+    private SlowMotion m;
 
     private void Awake () {
         instance = this;
         
         // Get all components in the audio source game object's children
         sources = audio.GetComponentsInChildren<AudioSource>();
+        
+        // Get Slow Motion Script
+        m = FindObjectOfType<SlowMotion>();
     }
 
 
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void ChangeAudioPitches () {
+        // Foreach loop for all audio sources in the 'sources' array
         foreach (AudioSource s in sources) {
             // If the pause menu object is not null, execute all other code
             if (pmObj != null) {
@@ -50,6 +54,16 @@ public class GameManager : MonoBehaviour {
                 }
                 else {
                     // Set pitches to 1 (default) when the pause menu is NOT active in the hierarchy
+                    s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
+                }
+            }
+            
+            // If the level complete UI is not null, execute all other code
+            if (lcUI != null) {
+                if (lcUI.activeInHierarchy) {
+                    s.pitch = Mathf.Lerp(s.pitch, 0.1f, audioLerpSpeed);
+                }
+                else {
                     s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
                 }
             }
@@ -68,17 +82,21 @@ public class GameManager : MonoBehaviour {
 
     public void Complete () {
         lcUI.SetActive(true);
+        goUI.SetActive(false);
         indi.SetActive(false);
-        pmUI.SetActive(false);
+        dindi.SetActive(false);
+        Destroy(pmObj);
+        m.enabled = false;
         Time.timeScale = 1f;
-        Destroy(player);
+        Destroy(player); 
     }
 
+
     public void EndGame () {
-        Camera.main.backgroundColor = Color.Lerp(Camera.main.backgroundColor, bgColour, colorLerpSpeed * Time.deltaTime);
         goUI.SetActive(true);
         indi.SetActive(false);
-        pmUI.SetActive(false);
+        dindi.SetActive(false);
+        Destroy(pmObj);
         Time.timeScale = 1f;
         Destroy(player);
     }
