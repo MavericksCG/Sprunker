@@ -40,10 +40,6 @@ public class PlayerController : MonoBehaviour {
     public AudioSource superJumpSFX;
 
 
-    [Header("MOVEMENT/PULLDOWN")]
-    public float pulldownForce;
-
-
     [Header("MOVEMENT/DASH")]
     [SerializeField] private float dashSpeed;
     [SerializeField] [Range(0f, 120f)] private float dashCooldown;
@@ -140,7 +136,7 @@ public class PlayerController : MonoBehaviour {
 
         #region Sprinting
 
-        if ((Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint))) {
+        if ((Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) && Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
             // Interpolate moveSpeed to sprintSpeed
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, accelerationSpeed);
         }
@@ -155,14 +151,6 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKey(Keybinds.instance.superJump) && canSuperJump) {
             StartCoroutine(SuperJump());
         }
-
-        #region Pulldown Ability 
-
-        if ((Input.GetKey(Keybinds.instance.pulldownKey) || Input.GetKey(Keybinds.instance.altPulldownKey))) {
-            rb.AddForce(Vector2.down * pulldownForce, ForceMode2D.Force);
-        }
-
-        #endregion
 
         #region Dashing
 
@@ -315,7 +303,6 @@ public class PlayerController : MonoBehaviour {
         // Invoke the EndGame method in the GameManager
         GameManager.instance.EndGame();
     }
-
 
     public bool IsSprinting () {
         if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) && Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) {
