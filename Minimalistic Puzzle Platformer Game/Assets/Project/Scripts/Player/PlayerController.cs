@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour {
 
         #region Sprinting
 
-        if ((Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) && Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
+        if ((Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) {
             // Interpolate moveSpeed to sprintSpeed
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, accelerationSpeed);
         }
