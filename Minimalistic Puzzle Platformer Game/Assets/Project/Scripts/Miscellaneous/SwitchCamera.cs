@@ -6,9 +6,8 @@ public class SwitchCamera : MonoBehaviour
 
     [Header("VARIABLES")]
     public CinemachineVirtualCamera mainVirtualCamera;
-    public CinemachineVirtualCamera secondVirtualCamera;
 
-    [Range(1, 4)] public int desiredPriority;
+    public int desiredPriority;
 
 
     public static SwitchCamera instance;

@@ -284,6 +284,10 @@ public class PlayerController : MonoBehaviour {
         // Ground Contraction
         if (col.CompareTag("Contract Ground"))
             ContractGround.instance.Contract();
+        
+        // Switching Virtual Camera Priority... again
+        if (col.CompareTag("Switch Virtual Camera 02"))
+            ContractGround.instance.Contract();
     }
 
 
