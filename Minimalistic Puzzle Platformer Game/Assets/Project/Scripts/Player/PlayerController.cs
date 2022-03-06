@@ -335,4 +335,11 @@ public class PlayerController : MonoBehaviour {
         else return false;
         
     }
+
+    public bool HasJumped () {
+        if (!isGrounded) return true;
+
+        else return false;
+        
+    }
 }

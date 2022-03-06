@@ -10,6 +10,7 @@ public class PlayerDynamicCamera : MonoBehaviour {
     [Header("FOVs")]
     [SerializeField] private float sprintFOV;
     [SerializeField] private float walkFOV;
+    [SerializeField] private float jumpFOV;
     [SerializeField] private float superJumpFOV;
     [SerializeField] private float dashFOV;
     
@@ -57,6 +58,12 @@ public class PlayerDynamicCamera : MonoBehaviour {
         else 
             camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(camera.m_Lens.OrthographicSize, currentFOV, ref vel, smoothing, smoothing);
         
+        
+        if (c.HasJumped())
+            camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(camera.m_Lens.OrthographicSize, jumpFOV, ref vel, smoothing, smoothing);
+        
+        else
+            camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(camera.m_Lens.OrthographicSize, currentFOV, ref vel, smoothing, smoothing);
         
     }
 
