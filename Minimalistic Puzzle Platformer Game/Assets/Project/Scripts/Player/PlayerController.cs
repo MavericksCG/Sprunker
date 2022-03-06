@@ -271,7 +271,7 @@ public class PlayerController : MonoBehaviour {
         else if (col.CompareTag("Teleporter") && !canTeleport)
             Destroy(prompt);
 
-
+        
         if (col.CompareTag("End Trigger")) {
             GameManager.instance.Complete();
         }
@@ -309,11 +309,30 @@ public class PlayerController : MonoBehaviour {
     }
 
     public bool IsSprinting () {
-        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) && Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) && Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) return true;
+        
+        else return false;
+        
+    }
+
+    public bool IsWalking () {
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) return true;
+        
+        else return false;
+        
+    }
+
+    public bool HasSuperJumped () {
+        if (!canSuperJump && !isGrounded) return true;
+        
+        else return false;
+        
+    }
+
+    public bool HasDashed () {
+        if (!canDash && !isGrounded) return true;
+        
+        else return false;
+        
     }
 }
