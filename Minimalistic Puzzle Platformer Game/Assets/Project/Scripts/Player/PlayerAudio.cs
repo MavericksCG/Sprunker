@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerAudio : MonoBehaviour {
     
     [Header("General")]
     [SerializeField] private AudioSource soundtrack;
 
-    [SerializeField] private float reductionThreshold;
     [SerializeField] [Range(0.1f, 1f)] private float desiredVolume;
     [SerializeField] private float smoothSpeed;
     private float vel = 0f;

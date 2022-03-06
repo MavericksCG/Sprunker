@@ -312,34 +312,29 @@ public class PlayerController : MonoBehaviour {
         if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) && Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) return true;
         
         else return false;
-        
     }
 
     public bool IsWalking () {
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) return true;
         
         else return false;
-        
     }
 
     public bool HasSuperJumped () {
         if (!canSuperJump && !isGrounded) return true;
         
         else return false;
-        
     }
 
     public bool HasDashed () {
         if (!canDash && !isGrounded) return true;
         
         else return false;
-        
     }
 
     public bool HasJumped () {
         if (!isGrounded) return true;
 
         else return false;
-        
     }
 }
