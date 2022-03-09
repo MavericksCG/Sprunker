@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour {
-    
-    // In the bunker you go boi
+namespace Sprunker.PuzzleElements {
+    public class Checkpoint : MonoBehaviour {
 
+        // In the bunker you go boi
+
+    }
 }

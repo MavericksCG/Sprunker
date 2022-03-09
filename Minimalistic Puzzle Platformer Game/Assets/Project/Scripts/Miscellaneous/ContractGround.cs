@@ -3,32 +3,34 @@ using UnityEngine;
 using EZCameraShake;
 using UnityEditor;
 
-public class ContractGround : MonoBehaviour {
+namespace Sprunker.Miscellaneous {
+    public class ContractGround : MonoBehaviour {
 
-    #region Singleton 
-    
-    public static ContractGround instance;
+        #region Singleton
 
-    private void Awake () {
-        instance = this;
-    }
-    
-    #endregion
+        public static ContractGround instance;
 
-    [Header("References and Variables")]
-    [SerializeField] private Animator contractAnimator;
-
-    [SerializeField] private bool useParticles;
-    [SerializeField] private GameObject particleToEnable;
-
-
-    public void Contract () {
-        contractAnimator.SetTrigger("contract");
-        CameraShaker.Instance.ShakeOnce(.5f, 0.3f, 0.5f, 1f);
-
-        if (useParticles) {
-            particleToEnable.SetActive(true);
+        private void Awake () {
+            instance = this;
         }
+
+        #endregion
+
+        [Header("References and Variables")] [SerializeField]
+        private Animator contractAnimator;
+
+        [SerializeField] private bool useParticles;
+        [SerializeField] private GameObject particleToEnable;
+
+
+        public void Contract () {
+            contractAnimator.SetTrigger("contract");
+            CameraShaker.Instance.ShakeOnce(.5f, 0.3f, 0.5f, 1f);
+
+            if (useParticles) {
+                particleToEnable.SetActive(true);
+            }
+        }
+
     }
-    
 }

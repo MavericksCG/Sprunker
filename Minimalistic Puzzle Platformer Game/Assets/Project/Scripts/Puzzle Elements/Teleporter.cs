@@ -1,10 +1,12 @@
 using UnityEngine;
 
-public class Teleporter : MonoBehaviour {
-	
-	public Transform destination;
+namespace Sprunker.PuzzleElements {
+	public class Teleporter : MonoBehaviour {
 
-	public Transform GetDestination () {
-		return destination;
+		public Transform destination;
+
+		public Transform GetDestination () {
+			return destination;
+		}
 	}
 }
