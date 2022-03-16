@@ -1,7 +1,5 @@
 using System;
 using UnityEngine;
-using EZCameraShake;
-using UnityEditor;
 
 namespace Sprunker.Miscellaneous {
     public class ContractGround : MonoBehaviour {
@@ -25,8 +23,7 @@ namespace Sprunker.Miscellaneous {
 
         public void Contract () {
             contractAnimator.SetTrigger("contract");
-            CameraShaker.Instance.ShakeOnce(.5f, 0.3f, 0.5f, 1f);
-
+            
             if (useParticles) {
                 particleToEnable.SetActive(true);
             }

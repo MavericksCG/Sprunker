@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using Sprunker.Managing;
@@ -7,96 +8,132 @@ using Sprunker.PuzzleElements;
 namespace Sprunker.Player {
 
     public class PlayerController : MonoBehaviour {
-        public static PlayerController instance;
 
-        [Header("MOVEMENT")] 
+        [Header("Movement")] 
         public float moveSpeed;
 
         private Rigidbody2D rb;
         private Vector2 moveDir;
 
 
-        [Header("MOVEMENT/JUMPING")] 
-        public float jumpForce;
-        public float checkHeight;
+        [Header("Movement/Jumping")] 
+        [SerializeField] private float jumpForce;
+        [SerializeField] private float checkHeight;
 
         private bool isGrounded;
 
-        public Transform groundCheck;
-        public LayerMask whatIsGround;
-
-        public AudioSource jumpSFX;
+        [SerializeField] private Transform groundCheck;
+        [SerializeField] private LayerMask whatIsGround;
 
 
-        [Header("MOVEMENT/SPRINTING")] 
-        public float normalSpeed;
-        public float sprintSpeed;
+        [Header("Movement/Sprinting")] 
+        [SerializeField] private float normalSpeed;
+        [SerializeField] private float sprintSpeed;
 
-        public float accelerationSpeed;
+        [SerializeField] private float accelerationSpeed;
 
 
-        [Header("MOVEMENT/JUMPING/SUPER-JUMP")]
-        public float superJumpForce;
+        [Header("Movement/Jumping/Super-Jump")]
+        [SerializeField] private float superJumpForce;
 
-        [Range(0.1f, 100f)] public float superJumpCooldown;
+        [Range(0.1f, 100f)] [SerializeField] private float superJumpCooldown;
 
         [HideInInspector] public bool canSuperJump = true;
 
-        public AudioSource superJumpSFX;
 
-
-        [Header("MOVEMENT/DASH")] 
+        [Header("Movement/Dashing")] 
         [SerializeField] private float dashSpeed;
-
         [SerializeField] [Range(0f, 120f)] private float dashCooldown;
 
         private int dir;
 
         [HideInInspector] public bool canDash = true;
 
-        [SerializeField] private AudioSource dashSFX;
 
-
-        [Header("TELEPORTATION")] 
-        public GameObject prompt;
+        [Header("Teleportation")] 
+        [SerializeField] private GameObject prompt;
         private GameObject currentTeleporter;
 
         private bool canTeleport = true;
 
 
         [Header("GFX")] 
-        public float particleDestructionDelay;
+        [SerializeField] private float particleDestructionDelay;
 
         private Quaternion particleShapeQuat;
 
         #region Particles
 
-        public GameObject groundJumpParticle;
-        public GameObject groundLandCollisionParticle;
-        public GameObject pillarCollisionParticle;
-        public GameObject platformCollisionParticle;
-        public GameObject harmfulPlatformCollisionParticle;
-        public GameObject endTriggerPlatformCollisionParticle;
-        public GameObject endTriggerCollisionParticle;
-        public GameObject endTriggerCoverCollisionParticle;
+        // Landing/Collision Particles
+        [SerializeField] private GameObject groundJumpParticle;
+        [SerializeField] private GameObject groundLandCollisionParticle;
+        [SerializeField] private GameObject pillarCollisionParticle;
+        [SerializeField] private GameObject platformCollisionParticle;
+        [SerializeField] private GameObject harmfulPlatformCollisionParticle;
+        [SerializeField] private GameObject endTriggerPlatformCollisionParticle;
+        [SerializeField] private GameObject endTriggerCollisionParticle;
+        [SerializeField] private GameObject endTriggerCoverCollisionParticle;
+
+
+        // Other Particles
+        [SerializeField] private GameObject checkpointSetParticle;
 
         #endregion
+        
+        
+        [Header("Audio")]
+        [SerializeField] private AudioSource deathSFX;
+        [SerializeField] private AudioSource dashSFX;
+        [SerializeField] private AudioSource superJumpSFX;
+        [SerializeField] private AudioSource jumpSFX;
+        
+        
+        [Header("Other")]
+        [SerializeField] private CinemachineVirtualCamera mainCamera;
+        [SerializeField] private bool logMainCameraPriority;
+
+        private PlayerUtilities utils;
+
+        [HideInInspector] public Vector3 startPos;
+
+        private Checkpoint checkpoint;
+
 
         private void Awake () {
             // Get components
             rb = GetComponent<Rigidbody2D>();
+            utils = GetComponent<PlayerUtilities>();
+            checkpoint = FindObjectOfType<Checkpoint>();
 
             // Set a quaternion for all of the particle rotations
             particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
 
+            // Invoke OnSpawn(); from PlayerUtilities
+            utils.OnSpawn();
+        }
+
+
+        private void Start () {
+            // Set the startPos(Vector3)
+            startPos = transform.position;    
         }
 
 
         private void Update () {
             // Shoot a raycast downwards from our groundCheck.position
             isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkHeight, whatIsGround);
-        }
 
+            if (checkpoint.hasSetCheckpoint && HasDied()) {
+                // Revert the change in the priority if the player has set a checkpoint and the player has died
+                SwitchCamera.instance.RevertPriorityChange();
+            }
+
+            if (logMainCameraPriority) {
+                // Write the main camera's priority each frame if the logMainCameraPriority bool is true
+                Debug.Log(mainCamera.Priority);
+            }
+        } 
+        
 
         private void FixedUpdate () {
             // Call Methods
@@ -106,14 +143,12 @@ namespace Sprunker.Player {
 
 
         private void HandleTeleportation () {
-
             if (Input.GetKey(Keybinds.instance.interact)) {
                 if (currentTeleporter != null && canTeleport) {
                     canTeleport = false;
                     rb.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
                 }
             }
-
         }
 
 
@@ -187,7 +222,7 @@ namespace Sprunker.Player {
 
         private IEnumerator Dash () {
 
-            // Check current movement direction using
+            // Check current movement direction using dir(int)
             switch (dir) {
                 case 1:
                     rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
@@ -217,6 +252,7 @@ namespace Sprunker.Player {
 
             yield return new WaitForSeconds(superJumpCooldown);
 
+            // Set canSuperJump back to true 
             canSuperJump = true;
 
         }
@@ -280,10 +316,15 @@ namespace Sprunker.Player {
                 Destroy(prompt);
 
 
+            if (col.CompareTag("Checkpoint")) {
+                GameObject csp = Instantiate(checkpointSetParticle, transform.position, Quaternion.identity);
+                Destroy(csp, particleDestructionDelay);
+            }
+
+
             if (col.CompareTag("End Trigger")) {
                 GameManager.instance.Complete();
             }
-
 
             // Switching Virtual Camera Priority 
             if (col.CompareTag("Switch Virtual Camera"))
@@ -296,6 +337,7 @@ namespace Sprunker.Player {
             // Switching Virtual Camera Priority... again
             if (col.CompareTag("Switch Virtual Camera 02"))
                 ContractGround.instance.Contract();
+            
         }
 
 
@@ -307,14 +349,19 @@ namespace Sprunker.Player {
             }
             else if (col.CompareTag("Teleporter") && !canTeleport)
                 Destroy(prompt);
-
         }
 
 
         private void Die () {
             // Invoke the EndGame method in the GameManager
             GameManager.instance.EndGame();
+            
+            // Play the death sound effect
+            deathSFX.Play();
         }
+
+
+        #region Boolean Methods
 
         public bool IsSprinting () {
             if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) && Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) return true;
@@ -345,5 +392,14 @@ namespace Sprunker.Player {
 
             else return false;
         }
+
+        private bool HasDied () {
+            if (gameObject == null)
+                return true;
+            else
+                return false;
+        }
+
+        #endregion
     }
 }

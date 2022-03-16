@@ -5,14 +5,14 @@ using Sprunker.Universal;
 namespace Sprunker.Managing {
     public class GameManager : MonoBehaviour {
 
-        [Header("ASSIGNABLES")] public GameObject lcUI;
+        [Header("ASSIGNABLES")] 
+        public GameObject lcUI;
         public GameObject goUI;
         public GameObject indi;
         public GameObject pmObj;
         public GameObject dindi;
 
         public GameObject player;
-        public GameObject env;
 
         public GameObject audio;
 
@@ -23,6 +23,9 @@ namespace Sprunker.Managing {
         [Range(0f, 1f)] [SerializeField] private float audioLerpSpeed;
         [SerializeField] private float pitchWhenPauseMenuIsActive;
 
+        [SerializeField] private bool logLastRecordedPosition;
+
+        [HideInInspector] public Vector2 lastRecordedPosition;
 
         private SlowMotion m;
 
@@ -40,6 +43,10 @@ namespace Sprunker.Managing {
         private void Update () {
             QuickRestart();
             ChangeAudioPitches();
+        
+            if (logLastRecordedPosition) {
+                Debug.Log(lastRecordedPosition);
+            }
         }
 
         private void ChangeAudioPitches () {
@@ -61,6 +68,16 @@ namespace Sprunker.Managing {
                 // If the level complete UI is not null, execute all other code
                 if (lcUI != null) {
                     if (lcUI.activeInHierarchy) {
+                        s.pitch = Mathf.Lerp(s.pitch, 0.1f, audioLerpSpeed);
+                    }
+                    else {
+                        s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
+                    }
+                }
+
+                // If the game over UI is not null, execute all other code
+                if (goUI != null) {
+                    if (goUI.activeInHierarchy) {
                         s.pitch = Mathf.Lerp(s.pitch, 0.1f, audioLerpSpeed);
                     }
                     else {

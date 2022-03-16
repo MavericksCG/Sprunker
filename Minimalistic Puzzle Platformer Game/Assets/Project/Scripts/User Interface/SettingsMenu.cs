@@ -6,6 +6,8 @@ namespace Sprunker.UserInterface {
 
     public class SettingsMenu : MonoBehaviour {
 
+        [SerializeField] private AudioSource clickSFX;
+
         private LoadingBar bar;
 
         [SerializeField] private TMP_Dropdown dropdown;
@@ -61,6 +63,7 @@ namespace Sprunker.UserInterface {
 
         private void ReturnToMainMenu () {
             bar.LoadScene(1);
+            clickSFX.Play();
         }
 
     }

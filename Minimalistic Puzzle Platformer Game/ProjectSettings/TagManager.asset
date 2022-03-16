@@ -17,6 +17,7 @@ TagManager:
   - Switch Virtual Camera 02
   - Music Object
   - Contract Ground
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

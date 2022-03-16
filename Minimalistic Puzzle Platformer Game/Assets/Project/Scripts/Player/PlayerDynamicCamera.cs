@@ -24,7 +24,6 @@ namespace Sprunker.Player {
         private void Start () {
             c = GetComponent<PlayerController>();
             currentFOV = camera.m_Lens.OrthographicSize;
-            Debug.Log(currentFOV);
         }
 
         private void Update () {

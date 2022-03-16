@@ -20,5 +20,9 @@ namespace Sprunker.Miscellaneous {
         public void SetPriority () {
             mainVirtualCamera.Priority = desiredPriority;
         }
+        
+        public void RevertPriorityChange () {
+            mainVirtualCamera.Priority = desiredPriority + 5;
+        }
     }
 }

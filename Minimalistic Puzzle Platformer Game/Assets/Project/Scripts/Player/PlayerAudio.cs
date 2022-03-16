@@ -5,7 +5,8 @@ using UnityEngine.Audio;
 namespace Sprunker.Player {
     public class PlayerAudio : MonoBehaviour {
 
-        [Header("General")] [SerializeField] private AudioSource soundtrack;
+        [Header("General")] 
+        [SerializeField] private AudioSource soundtrack;
 
         [SerializeField] [Range(0.1f, 1f)] private float desiredVolume;
         [SerializeField] private float smoothSpeed;

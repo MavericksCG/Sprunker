@@ -14,14 +14,14 @@ namespace Sprunker.UserInterface {
         private void Update () {
             if (controller != null) {
                 if (controller.canDash) {
-                    superJumpIndicatorUI.text = "Dash State : <b>AVAILABLE</b>";
+                    superJumpIndicatorUI.text = "Dash State : AVAILABLE";
                 }
                 else if (!controller.canDash) {
-                    superJumpIndicatorUI.text = "Dash State : <b>UNAVAILABLE</b>";
+                    superJumpIndicatorUI.text = "Dash State : UNAVAILABLE";
                 }
             }
             else {
-                superJumpIndicatorUI.text = "Can't Locate <b><color=red>DashIndicator.cs</color></b> in Project/Scripts/User Interface";
+                superJumpIndicatorUI.text = "Can't Locate <color=red>DashIndicator.cs</color> in Project/Scripts/User Interface";
             }
 
         }
