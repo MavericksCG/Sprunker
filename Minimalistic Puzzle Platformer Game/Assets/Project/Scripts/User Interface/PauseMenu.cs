@@ -14,6 +14,8 @@ namespace Sprunker.UserInterface {
 
         private SlowMotion slowMotion;
 
+        [SerializeField] private GameObject settingsUI;
+
 
         private void Start () {
             slowMotion = FindObjectOfType<SlowMotion>();
@@ -31,6 +33,12 @@ namespace Sprunker.UserInterface {
                     Time.timeScale = 0f;
                 }
             }
+
+            if (pausedUI != null) {
+                if (!pausedUI.activeInHierarchy) {
+                    settingsUI.SetActive(false);
+                }
+            } 
 
         }
 
@@ -55,20 +63,12 @@ namespace Sprunker.UserInterface {
 
         #region Button Handling
 
-        public void Restart () {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
         public void ExitToDesktop () {
             Application.Quit();
-        }
-
-        public void ExitToMainMenu () {
-            Debug.Log("Loading Main Menu...");
-        }
+        } 
 
         public void OpenSettings () {
-            Debug.Log("Opening Settings Menu...");
+            settingsUI.SetActive(true);
         }
 
         #endregion

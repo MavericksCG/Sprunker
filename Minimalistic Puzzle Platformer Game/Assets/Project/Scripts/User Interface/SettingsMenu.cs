@@ -51,9 +51,6 @@ namespace Sprunker.UserInterface {
             else QualitySettings.vSyncCount = 0;
         }
 
-        public void SetGameQuality (int index) {
-            QualitySettings.SetQualityLevel(index);
-        }
 
         private void Update () {
             if (Input.GetKeyDown(KeyCode.M)) {

@@ -7,6 +7,7 @@ namespace Sprunker.PuzzleElements {
 
         private GameManager m;
         [SerializeField] private float waitTime;
+        [SerializeField] private float destructionDelay;
 
         [SerializeField] private GameObject text;
         private Animator textAnim;
@@ -34,7 +35,6 @@ namespace Sprunker.PuzzleElements {
 
 
         private IEnumerator DoAnimations () {
-
             hasSetCheckpoint = true;
 
             if (text != null) {
@@ -44,7 +44,8 @@ namespace Sprunker.PuzzleElements {
 
             yield return new WaitForSeconds(waitTime);
 
-            text.SetActive(false);
+            textAnim.SetTrigger("Exit Frame");
+            Destroy(text, destructionDelay);
         }
 
 
