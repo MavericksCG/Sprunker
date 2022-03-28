@@ -44,8 +44,10 @@ namespace Sprunker.PuzzleElements {
 
             yield return new WaitForSeconds(waitTime);
 
-            textAnim.SetTrigger("Exit Frame");
-            Destroy(text, destructionDelay);
+            if (text != null) {
+                textAnim.SetTrigger("Exit Frame");
+                Destroy(text, destructionDelay);
+            }
         }
 
 

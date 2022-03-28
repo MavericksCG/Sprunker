@@ -15,6 +15,8 @@ namespace Sprunker.Player {
         private Rigidbody2D rb;
         private Vector2 moveDir;
 
+        [SerializeField] private AnimationCurve speedCurve = new AnimationCurve();
+
 
         [Header("Movement/Jumping")] 
         [SerializeField] private float jumpForce;
@@ -123,9 +125,11 @@ namespace Sprunker.Player {
             // Shoot a raycast downwards from our groundCheck.position
             isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkHeight, whatIsGround);
 
-            if (checkpoint.hasSetCheckpoint && HasDied()) {
-                // Revert the change in the priority if the player has set a checkpoint and the player has died
-                SwitchCamera.instance.RevertPriorityChange();
+            if (checkpoint != null) {
+                if (checkpoint.hasSetCheckpoint && HasDied()) {
+                    // Revert the change in the priority if the player has set a checkpoint and the player has died
+                    SwitchCamera.instance.RevertPriorityChange();
+                }
             }
 
             if (logMainCameraPriority) {
@@ -216,6 +220,9 @@ namespace Sprunker.Player {
 
 
             #endregion
+
+            // Updating graphs
+            speedCurve.AddKey(Time.realtimeSinceStartup, moveSpeed);
 
         }
 
@@ -335,9 +342,11 @@ namespace Sprunker.Player {
                 ContractGround.instance.Contract();
 
             // Switching Virtual Camera Priority... again
-            if (col.CompareTag("Switch Virtual Camera 02"))
-                ContractGround.instance.Contract();
-            
+            if (col.CompareTag("Switch Virtual Camera 02")) {
+                // ContractGround.instance.Contract();
+                SwitchCamera.instance.SetPriority();
+            }
+                
         }
 
 

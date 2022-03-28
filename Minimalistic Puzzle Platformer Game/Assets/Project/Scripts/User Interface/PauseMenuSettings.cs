@@ -7,6 +7,7 @@ namespace Sprunker.UserInterface {
     public class PauseMenuSettings : MonoBehaviour {
 
         [SerializeField] private TMP_Dropdown dropdown;
+        [SerializeField] private TextMeshProUGUI framerateText;
 
         private Resolution[] resolutions;
 
@@ -43,6 +44,11 @@ namespace Sprunker.UserInterface {
         public void UseVSync (bool useVSync) {
             if (useVSync) QualitySettings.vSyncCount = 1;
             else QualitySettings.vSyncCount = 0;
+        }
+
+        public void SetTargetFramerate (float targetFramerate) {
+            Application.targetFrameRate = (int)targetFramerate;
+            framerateText.text = Application.targetFrameRate.ToString();
         }
 
     }

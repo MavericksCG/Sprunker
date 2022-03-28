@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Sprunker.Managing {
     public class Keybinds : MonoBehaviour {
+
+        #region Singleton 
+
         public static Keybinds instance;
 
 
@@ -9,7 +12,10 @@ namespace Sprunker.Managing {
             instance = this;
         }
 
-        [Header("KEYBINDS")] public KeyCode jump = KeyCode.Space;
+        #endregion
+
+        [Header("Keybinds")] 
+        public KeyCode jump = KeyCode.Space;
         public KeyCode altJump = KeyCode.UpArrow;
 
         public KeyCode sprint = KeyCode.LeftShift;
@@ -26,5 +32,9 @@ namespace Sprunker.Managing {
         public KeyCode pauseOrResume = KeyCode.Escape;
 
         public KeyCode dashKey = KeyCode.LeftAlt;
+
+        public KeyCode openCloseAdvancedMenu = KeyCode.F1;
+        public KeyCode openCloseStandardMenu = KeyCode.F2;
+
     }
 }

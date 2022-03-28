@@ -6,16 +6,24 @@ namespace Sprunker.UserInterface {
 
     public class SettingsMenu : MonoBehaviour {
 
+        [Header("Variables and References")] 
+        [SerializeField] private bool logTargetFramerate;
+
         [SerializeField] private AudioSource clickSFX;
 
         private LoadingBar bar;
 
         [SerializeField] private TMP_Dropdown dropdown;
-
+        [SerializeField] private TextMeshProUGUI framerateText;
+      
         private Resolution[] resolutions;
 
 
         private void Start () {
+
+            // Set target framerate
+            Application.targetFrameRate = 60;
+
             bar = FindObjectOfType<LoadingBar>();
 
             resolutions = Screen.resolutions;
@@ -51,11 +59,19 @@ namespace Sprunker.UserInterface {
             else QualitySettings.vSyncCount = 0;
         }
 
+        public void SetTargetFramerate (float targetFramerate) {
+            Application.targetFrameRate = (int)targetFramerate;
+            framerateText.text = Application.targetFrameRate.ToString();
+        }
+
 
         private void Update () {
             if (Input.GetKeyDown(KeyCode.M)) {
                 ReturnToMainMenu();
             }
+
+            if (logTargetFramerate)
+                Debug.Log(Application.targetFrameRate);
         }
 
         private void ReturnToMainMenu () {

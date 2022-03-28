@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sprunker.Universal;
+using System;
 
 namespace Sprunker.Managing {
     public class GameManager : MonoBehaviour {
@@ -14,7 +15,7 @@ namespace Sprunker.Managing {
 
         public GameObject player;
 
-        public GameObject audio;
+        public GameObject audioObj;
 
         public static GameManager instance;
 
@@ -29,11 +30,14 @@ namespace Sprunker.Managing {
 
         private SlowMotion m;
 
+        [SerializeField] private AnimationCurve pitchCurve = new AnimationCurve();
+
+
         private void Awake () {
             instance = this;
 
             // Get all components in the audio source game object's children
-            sources = audio.GetComponentsInChildren<AudioSource>();
+            sources = audioObj.GetComponentsInChildren<AudioSource>();
 
             // Get Slow Motion Script
             m = FindObjectOfType<SlowMotion>();
@@ -43,9 +47,16 @@ namespace Sprunker.Managing {
         private void Update () {
             QuickRestart();
             ChangeAudioPitches();
+            HandleAudioPitchCurve();
         
             if (logLastRecordedPosition) {
                 Debug.Log(lastRecordedPosition);
+            }
+        }
+
+        private void HandleAudioPitchCurve () {
+            foreach (AudioSource s in sources) {
+                pitchCurve.AddKey(Time.realtimeSinceStartup, s.pitch);
             }
         }
 

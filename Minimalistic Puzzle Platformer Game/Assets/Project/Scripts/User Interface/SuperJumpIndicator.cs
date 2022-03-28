@@ -14,10 +14,10 @@ namespace Sprunker.UserInterface {
 		private void Update () {
 			if (controller != null) {
 				if (controller.canSuperJump) {
-					superJumpIndicatorUI.text = "Super Jump State : AVAILABLE";
+					superJumpIndicatorUI.text = "Super Jump : AVAILABLE";
 				}
 				else if (!controller.canSuperJump) {
-					superJumpIndicatorUI.text = "Super Jump State : UNAVAILABLE";
+					superJumpIndicatorUI.text = "Super Jump : UNAVAILABLE";
 				}
 			}
 			else {
