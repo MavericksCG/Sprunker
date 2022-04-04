@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections;
+using Random = UnityEngine.Random;
 using UnityEngine;
 using Sprunker.Managing;
 using Sprunker.Miscellaneous;
@@ -19,7 +20,7 @@ namespace Sprunker.Player {
 
 
         [Header("Movement/Jumping")] 
-        [SerializeField] private float jumpForce;
+        public float jumpForce;
         [SerializeField] private float checkHeight;
 
         private bool isGrounded;
@@ -29,8 +30,8 @@ namespace Sprunker.Player {
 
 
         [Header("Movement/Sprinting")] 
-        [SerializeField] private float normalSpeed;
-        [SerializeField] private float sprintSpeed;
+        public float normalSpeed;
+        public float sprintSpeed;
 
         [SerializeField] private float accelerationSpeed;
 
@@ -100,6 +101,13 @@ namespace Sprunker.Player {
 
         private Checkpoint checkpoint;
 
+        // TODO : Bring back the pulldown ability as a debug option 
+        // Debugging Options - 
+        [Header("Debugging/Pulldown")]
+        public bool usePulldown = false;
+        public float pulldownForce;
+        [SerializeField] private KeyCode pulldownKey = KeyCode.S;
+
 
         private void Awake () {
             // Get components
@@ -109,15 +117,21 @@ namespace Sprunker.Player {
 
             // Set a quaternion for all of the particle rotations
             particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
-
-            // Invoke OnSpawn(); from PlayerUtilities
-            utils.OnSpawn();
         }
 
 
         private void Start () {
             // Set the startPos(Vector3)
-            startPos = transform.position;    
+            startPos = transform.position;   
+            
+            // Invoke OnSpawn(); from PlayerUtilities
+            // First check if the PlayerUtilities Script in not null
+            if (utils != null) {
+                utils.OnSpawn();
+            }
+            else {
+                return;
+            }
         }
 
 
@@ -143,8 +157,19 @@ namespace Sprunker.Player {
             // Call Methods
             HandleMovement();
             HandleTeleportation();
+            HandleDebugMovement();
         }
 
+        private void HandleDebugMovement () {
+            // Check if usePulldown boolean in true
+            if (usePulldown) {
+                if (Input.GetKey(pulldownKey)) {
+                    // Add a downwards force
+                    rb.AddForce(Vector2.down * pulldownForce, ForceMode2D.Force);
+                }
+            }
+            else return;
+        }
 
         private void HandleTeleportation () {
             if (Input.GetKey(Keybinds.instance.interact)) {

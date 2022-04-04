@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Sprunker.Player;
 using Sprunker.Managing;
 using System;
 
@@ -8,20 +9,38 @@ namespace Sprunker.Debugging.Advanced {
 
     public class AdvancedDebugMenuHandler : MonoBehaviour {
 
+        // Universal
         public static AdvancedDebugMenuHandler instance;
+        private PlayerController c;
 
-        [SerializeField] private Transform player;
+        [Header("Player Speed")]
+        [SerializeField] private TMP_InputField speedNorm;
+        [SerializeField] private TMP_InputField speedSpri;
 
+
+        [Header("Use Pulldown Ability")]
+        [SerializeField] private TMP_InputField pulldownField;
+
+
+        [Header("Player Jump Force")]
+        [SerializeField] private TMP_InputField setForceField; 
+
+
+        [Header("Enabling and Disabling menus")]
         [SerializeField] private GameObject standardMenu;
         [SerializeField] private GameObject advancedMenuUI;
         private Keybinds binds;
 
+        [Header("Loading Specific Scene")]
         [SerializeField] private TMP_InputField sceneIndexField;
 
+        [Header("Player Position")]
+        [SerializeField] private Transform player;
         [SerializeField] private TMP_InputField posX;
         [SerializeField] private TMP_InputField posY;
         [SerializeField] private TMP_InputField posZ;
 
+        [Header("Bool Checks")] 
         private bool showAdvancedMenu;
         private bool showStandardMenu;
 
@@ -29,6 +48,9 @@ namespace Sprunker.Debugging.Advanced {
         private void Awake () {
             // Get the keybinds script
             binds = FindObjectOfType<Keybinds>();
+
+            // Get PlayerController
+            c = FindObjectOfType<PlayerController>();
 
             // Set instance
             instance = this;
@@ -65,20 +87,67 @@ namespace Sprunker.Debugging.Advanced {
 
         public void SetPlayerPosition () {
 
-            Vector3 position = new Vector3();
+            if (player != null) {
 
-            // Calculate Values
-            int calcX = Convert.ToInt32(posX.text);
-            position.x = (float)calcX;
+                Vector3 position = new Vector3();
 
-            int calcY = Convert.ToInt32(posY.text);
-            position.y = (float)calcY;
+                // Calculate Values
+                int calcX = Convert.ToInt32(posX.text);
+                position.x = (float)calcX;
 
-            int calcZ = Convert.ToInt32(posZ.text);
-            position.z = (float)calcZ;
+                int calcY = Convert.ToInt32(posY.text);
+                position.y = (float)calcY;
 
-            // Set Player Position
-            player.position = position;
+                int calcZ = Convert.ToInt32(posZ.text);
+                position.z = (float)calcZ;
+
+                // Set Player Position
+                player.position = position;
+
+            }
+        }
+
+        public void SetPlayerSpeed () {
+
+            if (c != null) {
+
+                // Conversion
+                int normalSpeed = Convert.ToInt32(speedNorm.text);
+                int sprintSpeed = Convert.ToInt32(speedSpri.text);
+
+                // Setting Speed Values
+                c.normalSpeed = (float)normalSpeed;
+                c.sprintSpeed = (float)sprintSpeed;
+
+
+            }
+        }
+
+        public void SetPlayerJumpForce () {
+            if (c != null) {
+                // Conversion
+                int force = Convert.ToInt32(setForceField.text);
+
+                // Set Value 
+                c.jumpForce = (float)force;
+            }
+        }
+
+        public void UsePulldown (bool usePulldownAbility) {
+            if (usePulldownAbility) {
+                c.usePulldown = true;
+            }
+            else {
+                c.usePulldown = false;
+            }
+        }
+
+        public void SetPulldownForce () {
+            // Convert
+            int force = Convert.ToInt32(pulldownField.text);
+
+            // Set Value
+            c.pulldownForce = (float)force;
         }
     }
 
