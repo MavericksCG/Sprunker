@@ -21,11 +21,13 @@ namespace Sprunker.Player {
 
         [Header("Movement/Jumping")] 
         public float jumpForce;
+
+        // Ground Detection
         [SerializeField] private float checkHeight;
 
         private bool isGrounded;
 
-        [SerializeField] private Transform groundCheck;
+        [SerializeField] private Transform particleSpawnPoint;
         [SerializeField] private LayerMask whatIsGround;
 
 
@@ -95,10 +97,11 @@ namespace Sprunker.Player {
         [SerializeField] private CinemachineVirtualCamera mainCamera;
         [SerializeField] private bool logMainCameraPriority;
 
-        private PlayerUtilities utils;
-
         [HideInInspector] public Vector3 startPos;
 
+        [SerializeField] private AudioSource spawnSoundEffect; 
+
+        private PlayerUtilities utilities;
         private Checkpoint checkpoint;
 
         // TODO : Bring back the pulldown ability as a debug option 
@@ -112,8 +115,10 @@ namespace Sprunker.Player {
         private void Awake () {
             // Get components
             rb = GetComponent<Rigidbody2D>();
-            utils = GetComponent<PlayerUtilities>();
+            
+            // Get Scripts
             checkpoint = FindObjectOfType<Checkpoint>();
+            utilities = GetComponent<PlayerUtilities>();
 
             // Set a quaternion for all of the particle rotations
             particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
@@ -122,22 +127,27 @@ namespace Sprunker.Player {
 
         private void Start () {
             // Set the startPos(Vector3)
-            startPos = transform.position;   
-            
+            startPos = transform.position;
+
             // Invoke OnSpawn(); from PlayerUtilities
             // First check if the PlayerUtilities Script in not null
-            if (utils != null) {
-                utils.OnSpawn();
-            }
-            else {
+            if (utilities != null)
+                utilities.Spawn(spawnSoundEffect);
+            else
                 return;
-            }
         }
 
 
         private void Update () {
-            // Shoot a raycast downwards from our groundCheck.position
-            isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkHeight, whatIsGround);
+            // Shoot a raycast downwards from transform.position
+            isGrounded = Physics2D.Raycast(transform.position, Vector2.down, checkHeight, whatIsGround);
+            // Ray for visualizing the check process 
+            if (isGrounded) {
+                Debug.DrawRay(transform.position, Vector3.down, Color.green);
+            }
+            else {
+                Debug.DrawRay(transform.position, Vector3.down, Color.red);
+            }
 
             if (checkpoint != null) {
                 if (checkpoint.hasSetCheckpoint && HasDied()) {
@@ -195,8 +205,8 @@ namespace Sprunker.Player {
             if ((Input.GetKey(Keybinds.instance.jump) || Input.GetKey(Keybinds.instance.altJump)) && isGrounded) {
                 // Add an upwards force to the rigidbody's velocity
                 rb.velocity = Vector2.up * jumpForce;
-                GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
-                Destroy(jp, particleDestructionDelay);
+                GameObject jp = Instantiate(groundJumpParticle, particleSpawnPoint.position, particleShapeQuat);
+                //Destroy(jp, particleDestructionDelay);
 
                 // Play the jump sound effect
                 jumpSFX.Play();
@@ -278,7 +288,7 @@ namespace Sprunker.Player {
 
             canSuperJump = false;
             rb.velocity = Vector2.up * superJumpForce;
-            GameObject jp = Instantiate(groundJumpParticle, groundCheck.position, particleShapeQuat);
+            GameObject jp = Instantiate(groundJumpParticle, particleSpawnPoint.position, particleShapeQuat);
             Destroy(jp, particleDestructionDelay);
             superJumpSFX.Play();
 
@@ -296,40 +306,41 @@ namespace Sprunker.Player {
                 Die();
             }
 
+            // TODO: Optimize this process b
             #region Particles
 
             if (col.gameObject.CompareTag("GroundObject")) {
-                GameObject cp = Instantiate(groundLandCollisionParticle, groundCheck.position, particleShapeQuat);
-                Destroy(cp, particleDestructionDelay);
+                GameObject cp = Instantiate(groundLandCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                //Destroy(cp, particleDestructionDelay);
             }
 
             if (col.gameObject.CompareTag("Pillar")) {
-                GameObject cp = Instantiate(pillarCollisionParticle, groundCheck.position, particleShapeQuat);
+                GameObject cp = Instantiate(pillarCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
                 Destroy(cp, particleDestructionDelay);
             }
 
             if (col.gameObject.CompareTag("Platform")) {
-                GameObject cp = Instantiate(platformCollisionParticle, groundCheck.position, particleShapeQuat);
+                GameObject cp = Instantiate(platformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
                 Destroy(cp, particleDestructionDelay);
             }
 
             if (col.gameObject.CompareTag("Harmful Platform")) {
-                GameObject cp = Instantiate(harmfulPlatformCollisionParticle, groundCheck.position, particleShapeQuat);
+                GameObject cp = Instantiate(harmfulPlatformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
                 Destroy(cp, particleDestructionDelay);
             }
 
             if (col.gameObject.CompareTag("End Platform Base")) {
-                GameObject cp = Instantiate(endTriggerPlatformCollisionParticle, groundCheck.position, particleShapeQuat);
+                GameObject cp = Instantiate(endTriggerPlatformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
                 Destroy(cp, particleDestructionDelay);
             }
 
             if (col.gameObject.CompareTag("End Trigger")) {
-                GameObject cp = Instantiate(endTriggerCollisionParticle, groundCheck.position, particleShapeQuat);
+                GameObject cp = Instantiate(endTriggerCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
                 Destroy(cp, particleDestructionDelay);
             }
 
             if (col.gameObject.CompareTag("End Platform Cover")) {
-                GameObject cp = Instantiate(endTriggerCoverCollisionParticle, groundCheck.position, particleShapeQuat);
+                GameObject cp = Instantiate(endTriggerCoverCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
                 Destroy(cp, particleDestructionDelay);
             }
 

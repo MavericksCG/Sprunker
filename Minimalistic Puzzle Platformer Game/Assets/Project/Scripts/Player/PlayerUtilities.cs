@@ -5,27 +5,24 @@ namespace Sprunker.Player {
     
     public class PlayerUtilities : MonoBehaviour {
 
-        [Header("Audio Utils")]
-        [SerializeField] private AudioSource spawn;
+        [SerializeField] private GameObject player;
+        private Vector3 savedPos;
 
-
-        [Header("Other Utils")]
-        [SerializeField] private CinemachineVirtualCamera vcam02;
-        [SerializeField] [Range(0f, 1f)] private float lerpSpeed;
-        
-
-
-        public void OnSpawn () {
+        public void Spawn (AudioSource spawn) {
             spawn.Play();
         }
 
-        private void OnTriggerEnter2D (Collider2D col) {
-            if (col.CompareTag("Switch Virtual Camera 02")) {
-                vcam02.Follow = gameObject.transform;
-                vcam02.m_Lens.OrthographicSize = 8.28f;
-                
-            }
+        public void SetPosition (Transform posTransform, Vector3 pos) {
+            savedPos = posTransform.position;
+            // Add some styling
+            Debug.Log("<b><color=lightblue>Saved Transform's Coordinates</color></b> : " + savedPos, player);
+            posTransform.position = pos;
         }
+
+        public void ResetPosition (Transform transformToReset) {
+            transformToReset.position = savedPos;
+        }
+
     }
     
 }
