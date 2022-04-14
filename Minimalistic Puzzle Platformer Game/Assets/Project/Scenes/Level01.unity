@@ -3019,80 +3019,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363079502}
   m_CullTransparentMesh: 1
---- !u!1 &367504074
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 367504075}
-  - component: {fileID: 367504077}
-  - component: {fileID: 367504076}
-  m_Layer: 0
-  m_Name: EnterSlowMotionTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &367504075
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367504074}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.25, y: -2.81, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1741001753}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &367504076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367504074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef67a4847e910a4587d16e8685b9a00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyToPress: 8
-  key: {fileID: 1462032723}
-  keyAnim: {fileID: 1462032727}
-  waitTime: 1
---- !u!61 &367504077
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367504074}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5537329, y: 1.7213857}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.1074657, y: 7.0429063}
-  m_EdgeRadius: 0
 --- !u!1 &422047678
 GameObject:
   m_ObjectHideFlags: 0
@@ -5926,6 +5852,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2717643144695999947}
+    - target: {fileID: 6803695712768282420, guid: b43a066d1913ce344824a0b12d813fb7, type: 3}
+      propertyPath: audioObj
+      value: 
+      objectReference: {fileID: 1444713696}
     - target: {fileID: 6803695712768282420, guid: b43a066d1913ce344824a0b12d813fb7, type: 3}
       propertyPath: audioLerpSpeed
       value: 0.039
@@ -9719,8 +9649,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1134807161}
-  - {fileID: 367504075}
-  - {fileID: 1920860835}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11102,80 +11030,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!1 &1920860834
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1920860835}
-  - component: {fileID: 1920860837}
-  - component: {fileID: 1920860836}
-  m_Layer: 0
-  m_Name: EnterSlowMotionTrigger 02
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1920860835
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920860834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.58, y: -2.81, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1741001753}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1920860836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920860834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef67a4847e910a4587d16e8685b9a00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyToPress: 32
-  key: {fileID: 1135700201}
-  keyAnim: {fileID: 1135700203}
-  waitTime: 1
---- !u!61 &1920860837
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920860834}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5537329, y: 1.7213857}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.1074657, y: 7.0429063}
-  m_EdgeRadius: 0
 --- !u!1 &1956775908
 GameObject:
   m_ObjectHideFlags: 0
@@ -12211,7 +12065,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   jumpForce: 10
   checkHeight: 0.3
-  groundCheck: {fileID: 2717643144759699964}
+  particleSpawnPoint: {fileID: 2717643144759699964}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -12242,6 +12096,10 @@ MonoBehaviour:
   mainCamera: {fileID: 5781169884650357447}
   logMainCameraPriority: 0
   startPos: {x: 0, y: 0, z: 0}
+  spawnSoundEffect: {fileID: 0}
+  usePulldown: 0
+  pulldownForce: 0
+  pulldownKey: 115
 --- !u!114 &2717643144695999937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12430,7 +12288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a5d386c670fd748a509701f5dabff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 5781169884650357447}
   camera02: {fileID: 546581681}
   sprintFOV: 11
   walkFOV: 9
@@ -12456,9 +12314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb2862096b1c7140826e1a0535fb79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: {fileID: 287836120}
-  vcam02: {fileID: 546581681}
-  lerpSpeed: 0.255
+  player: {fileID: 2717643144695999947}
 --- !u!1 &2717643144759699963
 GameObject:
   m_ObjectHideFlags: 0

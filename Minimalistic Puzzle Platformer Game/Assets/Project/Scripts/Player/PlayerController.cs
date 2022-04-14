@@ -171,7 +171,7 @@ namespace Sprunker.Player {
         }
 
         private void HandleDebugMovement () {
-            // Check if usePulldown boolean in true
+            // Check if usePulldown boolean is true
             if (usePulldown) {
                 if (Input.GetKey(pulldownKey)) {
                     // Add a downwards force
@@ -206,7 +206,7 @@ namespace Sprunker.Player {
                 // Add an upwards force to the rigidbody's velocity
                 rb.velocity = Vector2.up * jumpForce;
                 GameObject jp = Instantiate(groundJumpParticle, particleSpawnPoint.position, particleShapeQuat);
-                //Destroy(jp, particleDestructionDelay);
+                Destroy(jp, particleDestructionDelay);
 
                 // Play the jump sound effect
                 jumpSFX.Play();
@@ -306,44 +306,43 @@ namespace Sprunker.Player {
                 Die();
             }
 
-            // TODO: Optimize this process b
             #region Particles
-
-            if (col.gameObject.CompareTag("GroundObject")) {
-                GameObject cp = Instantiate(groundLandCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
-                //Destroy(cp, particleDestructionDelay);
+            switch (col.gameObject.tag) {
+                case "GroundObject":
+                    GameObject gcp = Instantiate(groundLandCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                    Destroy(gcp, particleDestructionDelay);
+                    break;
+                
+                case "Pillar": 
+                    GameObject pcp = Instantiate(pillarCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                    Destroy(pcp, particleDestructionDelay);
+                    break;
+                
+                case "Platform": 
+                    GameObject plcp = Instantiate(platformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                    Destroy(plcp, particleDestructionDelay);
+                    break;
+                
+                case "Harmful Platform": 
+                    GameObject hcp = Instantiate(harmfulPlatformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                    Destroy(hcp, particleDestructionDelay);
+                    break; 
+                
+                case "End Platform Base":
+                    GameObject epcp = Instantiate(endTriggerPlatformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                    Destroy(epcp, particleDestructionDelay);
+                    break;
+                
+                case "End Trigger":
+                    GameObject etcp = Instantiate(endTriggerCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                    Destroy(etcp, particleDestructionDelay);
+                    break;
+                
+                case "End Platform Cover": 
+                    GameObject epccp = Instantiate(endTriggerCoverCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
+                    Destroy(epccp, particleDestructionDelay);
+                    break;
             }
-
-            if (col.gameObject.CompareTag("Pillar")) {
-                GameObject cp = Instantiate(pillarCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
-                Destroy(cp, particleDestructionDelay);
-            }
-
-            if (col.gameObject.CompareTag("Platform")) {
-                GameObject cp = Instantiate(platformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
-                Destroy(cp, particleDestructionDelay);
-            }
-
-            if (col.gameObject.CompareTag("Harmful Platform")) {
-                GameObject cp = Instantiate(harmfulPlatformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
-                Destroy(cp, particleDestructionDelay);
-            }
-
-            if (col.gameObject.CompareTag("End Platform Base")) {
-                GameObject cp = Instantiate(endTriggerPlatformCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
-                Destroy(cp, particleDestructionDelay);
-            }
-
-            if (col.gameObject.CompareTag("End Trigger")) {
-                GameObject cp = Instantiate(endTriggerCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
-                Destroy(cp, particleDestructionDelay);
-            }
-
-            if (col.gameObject.CompareTag("End Platform Cover")) {
-                GameObject cp = Instantiate(endTriggerCoverCollisionParticle, particleSpawnPoint.position, particleShapeQuat);
-                Destroy(cp, particleDestructionDelay);
-            }
-
             #endregion
         }
 
@@ -410,39 +409,32 @@ namespace Sprunker.Player {
 
         public bool IsSprinting () {
             if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) && Input.GetKey(Keybinds.instance.sprint) || Input.GetKey(Keybinds.instance.altSprint)) return true;
-
             else return false;
         }
 
         public bool IsWalking () {
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)) return true;
-
             else return false;
         }
 
         public bool HasSuperJumped () {
             if (!canSuperJump && !isGrounded) return true;
-
             else return false;
         }
 
         public bool HasDashed () {
             if (!canDash && !isGrounded) return true;
-
             else return false;
         }
 
         public bool HasJumped () {
             if (!isGrounded) return true;
-
             else return false;
         }
 
         private bool HasDied () {
-            if (gameObject == null)
-                return true;
-            else
-                return false;
+            if (gameObject == null) return true;
+            else return false;
         }
 
         #endregion

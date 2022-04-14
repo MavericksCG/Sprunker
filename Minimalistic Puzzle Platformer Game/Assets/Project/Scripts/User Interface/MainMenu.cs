@@ -29,7 +29,7 @@ namespace Sprunker.UserInterface {
             else if (menuContainers[1].activeInHierarchy == true) {
                 menuContainers[0].SetActive(false);
                 menuContainers[2].SetActive(false);
-            }
+            }                
             else if (menuContainers[2].activeInHierarchy == true) {
                 menuContainers[0].SetActive(false);
                 menuContainers[1].SetActive(false);
