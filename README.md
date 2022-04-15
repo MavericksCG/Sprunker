@@ -1,4 +1,4 @@
-# Sprunker is a minimalistic color-blind friendly platformer game
+## Sprunker is a minimalistic color-blind friendly platformer game
 **Release Date - Not Confirmed.**
 ---
 **My Socials** 
