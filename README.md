@@ -3,7 +3,7 @@
 ---
 **Release Date - Not Confirmed.
 ---
-**My Socials - ** 
+**My Socials** 
 - [Itch](https://maverickscg.itch.io/)
 - [Reddit](https://www.reddit.com/user/DankMavericks)
 - [Website](maverickscg.github.io)
