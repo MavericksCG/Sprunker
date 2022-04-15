@@ -1,7 +1,7 @@
 # Sprunker 
 **Sprunker is a color-blind friendly puzzle platformer game developed by Mavericks** 
 ---
-**Release Date - Not Confirmed.
+**Release Date - Not Confirmed.**
 ---
 **My Socials** 
 - [Itch](https://maverickscg.itch.io/)
