@@ -7,6 +7,6 @@
 
 - [Reddit](https://www.reddit.com/user/DankMavericks)
 
-- [Website](maverickscg.github.io)
+- [Website](https://maverickscg.github.io/)
 
 - [YouTube](https://www.youtube.com/channel/UC-GC41tCMv0TkDx0zddTK7w)
