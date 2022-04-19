@@ -79,7 +79,7 @@ namespace Sprunker.Managing {
                 // If the level complete UI is not null, execute all other code
                 if (lcUI != null) {
                     if (lcUI.activeInHierarchy) {
-                        s.pitch = Mathf.Lerp(s.pitch, 0.1f, audioLerpSpeed);
+                        s.pitch = Mathf.Lerp(s.pitch, 0.5f, audioLerpSpeed);
                     }
                     else {
                         s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
@@ -89,7 +89,7 @@ namespace Sprunker.Managing {
                 // If the game over UI is not null, execute all other code
                 if (goUI != null) {
                     if (goUI.activeInHierarchy) {
-                        s.pitch = Mathf.Lerp(s.pitch, 0.1f, audioLerpSpeed);
+                        s.pitch = Mathf.Lerp(s.pitch, 0.5f, audioLerpSpeed);
                     }
                     else {
                         s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);

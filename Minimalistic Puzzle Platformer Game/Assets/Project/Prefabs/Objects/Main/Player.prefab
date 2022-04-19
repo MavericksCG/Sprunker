@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8216290573694252720}
   m_Layer: 0
-  m_Name: GroundCheck
+  m_Name: ParticleSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &8216290573756379788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,9 +180,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
+  speedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   jumpForce: 10
   checkHeight: 0.3
-  groundCheck: {fileID: 8216290573694252720}
+  particleSpawnPoint: {fileID: 8216290573694252720}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -205,10 +211,18 @@ MonoBehaviour:
   endTriggerPlatformCollisionParticle: {fileID: 1995933553493812909, guid: 663d5169102e5a64f8681593240bf384, type: 3}
   endTriggerCollisionParticle: {fileID: 1995933553493812909, guid: 46e3820fb66a6bf4ab14bbe86dc80f9d, type: 3}
   endTriggerCoverCollisionParticle: {fileID: 1995933553493812909, guid: b63711d60d1f379448bd0c48b27bc6aa, type: 3}
+  checkpointSetParticle: {fileID: 0}
   deathSFX: {fileID: 0}
   dashSFX: {fileID: 0}
   superJumpSFX: {fileID: 0}
   jumpSFX: {fileID: 0}
+  mainCamera: {fileID: 0}
+  logMainCameraPriority: 0
+  startPos: {x: 0, y: 0, z: 0}
+  spawnSoundEffect: {fileID: 0}
+  usePulldown: 0
+  pulldownForce: 0
+  pulldownKey: 115
 --- !u!114 &8216290573756379789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,13 +274,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a5d386c670fd748a509701f5dabff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  cam: {fileID: 0}
+  camera02: {fileID: 0}
   sprintFOV: 11
   walkFOV: 9
   jumpFOV: 10
   superJumpFOV: 20
   dashFOV: 25
   smoothing: 1.89
+  fovCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &8216290573756379806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,4 +300,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb2862096b1c7140826e1a0535fb79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: {fileID: 0}
+  player: {fileID: 0}

@@ -1,6 +1,7 @@
+// Note to self: using random numbers for dashing interferes with the player's skill and should be avoided.
+
 using Cinemachine;
 using System.Collections;
-using Random = UnityEngine.Random;
 using UnityEngine;
 using Sprunker.Managing;
 using Sprunker.Miscellaneous;
@@ -9,7 +10,9 @@ using Sprunker.PuzzleElements;
 namespace Sprunker.Player {
 
     public class PlayerController : MonoBehaviour {
-
+        
+        #region Variables and References
+        
         [Header("Movement")] 
         public float moveSpeed;
 
@@ -49,8 +52,9 @@ namespace Sprunker.Player {
         [Header("Movement/Dashing")] 
         [SerializeField] private float dashSpeed;
         [SerializeField] [Range(0f, 120f)] private float dashCooldown;
-
-        private int dir;
+        
+        // This variable will be used to check the movement direction while dashing
+        private int dir = 1;
 
         [HideInInspector] public bool canDash = true;
 
@@ -84,9 +88,8 @@ namespace Sprunker.Player {
         [SerializeField] private GameObject checkpointSetParticle;
 
         #endregion
-        
-        
-        [Header("Audio")]
+
+        [Header("Audio")] 
         [SerializeField] private AudioSource deathSFX;
         [SerializeField] private AudioSource dashSFX;
         [SerializeField] private AudioSource superJumpSFX;
@@ -103,13 +106,13 @@ namespace Sprunker.Player {
 
         private PlayerUtilities utilities;
         private Checkpoint checkpoint;
-
-        // TODO : Bring back the pulldown ability as a debug option 
-        // Debugging Options - 
+        
         [Header("Debugging/Pulldown")]
-        public bool usePulldown = false;
-        public float pulldownForce;
-        [SerializeField] private KeyCode pulldownKey = KeyCode.S;
+        [HideInInspector] public bool usePulldown = false;
+        [HideInInspector] public float pulldownForce;
+        private KeyCode pulldownKey = KeyCode.S;
+        
+        #endregion
 
 
         private void Awake () {
@@ -191,7 +194,7 @@ namespace Sprunker.Player {
         }
 
 
-        private void HandleMovement () {
+        private void HandleMovement() {
 
             // GetAxis provides smoother but less snappier movement but GetAxisRaw made it look a little suspiciously snappy
             float horizontalMovement = Input.GetAxis("Horizontal");
@@ -238,7 +241,7 @@ namespace Sprunker.Player {
             if (Input.GetKey(Keybinds.instance.dashKey) && canDash) {
                 StartCoroutine(Dash());
             }
-
+            
             // If Statements to check which input key was pressed
             if (Input.GetKey(KeyCode.D)) {
                 dir = 1;
@@ -247,12 +250,6 @@ namespace Sprunker.Player {
             if (Input.GetKey(KeyCode.A)) {
                 dir = 2;
             }
-
-            // Set the dir variable to a random amount if no key is being pressed.
-            if (dir == 0) {
-                dir = Random.Range(1, 2);
-            }
-
 
             #endregion
 
