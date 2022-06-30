@@ -6,7 +6,7 @@ using System;
 namespace Sprunker.Managing {
     public class GameManager : MonoBehaviour {
 
-        [Header("ASSIGNABLES")] 
+        [Header("Assignables")] 
         public GameObject lcUI;
         public GameObject goUI;
         public GameObject indi;
@@ -79,20 +79,20 @@ namespace Sprunker.Managing {
                 // If the level complete UI is not null, execute all other code
                 if (lcUI != null) {
                     if (lcUI.activeInHierarchy) {
-                        s.pitch = Mathf.Lerp(s.pitch, 0.5f, audioLerpSpeed);
+                        s.volume = Mathf.Lerp(s.volume, 0.3f, audioLerpSpeed);
                     }
                     else {
-                        s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
+                        s.volume = Mathf.Lerp(s.volume, 1f, audioLerpSpeed);
                     }
                 }
 
                 // If the game over UI is not null, execute all other code
                 if (goUI != null) {
                     if (goUI.activeInHierarchy) {
-                        s.pitch = Mathf.Lerp(s.pitch, 0.5f, audioLerpSpeed);
+                        s.volume = Mathf.Lerp(s.volume, 0.3f, audioLerpSpeed);
                     }
                     else {
-                        s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
+                        s.volume = Mathf.Lerp(s.volume, 0.3f, audioLerpSpeed);
                     }
                 }
 
@@ -128,5 +128,22 @@ namespace Sprunker.Managing {
             Time.timeScale = 1f;
             Destroy(player);
         }
+        
+        
+        public void EnableObj (GameObject objToEnable) {
+            if (objToEnable != null) {
+                objToEnable.SetActive(true);
+            }
+            else {
+                bool log = true;
+                if (log == true) {
+                    Debug.Log("There is no object assigned to enable!");
+                }
+                log = false;
+
+            }
+        }
     }
+    
+
 }

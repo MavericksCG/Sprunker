@@ -118,8 +118,9 @@ namespace Sprunker.Debugging.Advanced {
                 // Setting Speed Values
                 c.normalSpeed = (float)normalSpeed;
                 c.sprintSpeed = (float)sprintSpeed;
-
-
+                // Since the speed values are not integers and are instead float values, we cast the changed numbers as a float, even though its an integer.
+                // However, this does mean that you can't be very specific about the number you enter - 1.5 is not an acceptable value, but 1 or 2 is.
+                // Narrows down your options but is still quite fun to mess with.
             }
         }
 
