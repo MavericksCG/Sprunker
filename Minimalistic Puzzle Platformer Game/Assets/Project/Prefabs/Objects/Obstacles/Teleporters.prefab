@@ -9730,7 +9730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7102cd42d7c76c4c802a54cb431a629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 8034480080939270401}
+  destination: {fileID: 0}
 --- !u!1 &8034480080516258611
 GameObject:
   m_ObjectHideFlags: 0

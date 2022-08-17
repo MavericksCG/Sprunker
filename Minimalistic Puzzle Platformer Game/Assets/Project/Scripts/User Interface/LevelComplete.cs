@@ -5,17 +5,26 @@ namespace Sprunker.UserInterface {
 
     public class LevelComplete : MonoBehaviour {
 
+        public int loadNextScene;
+
+
+        private void Start () {
+            loadNextScene = SceneManager.GetActiveScene().buildIndex + 1;
+        }
+
         // Buttons
         public void Continue () {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            // Load the next level in the queue
+            SceneManager.LoadScene(loadNextScene);
+        
+            // Set new value for when you complete a level so that the next level is now interactable in the level selection page
+            if (loadNextScene > PlayerPrefs.GetInt("currentLevel")) {
+                PlayerPrefs.SetInt("currentLevel", loadNextScene);
+            }
         }
 
         public void Retry () {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
-        public void ExitToMenu () {
-            Debug.Log("Loading Main Menu");
         }
 
         public void ExitToDesktop () {

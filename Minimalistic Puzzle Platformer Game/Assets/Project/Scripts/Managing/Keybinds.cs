@@ -17,6 +17,7 @@ namespace Sprunker.Managing {
         [Header("Keybinds")] 
         public KeyCode jump = KeyCode.Space;
         public KeyCode altJump = KeyCode.UpArrow;
+        public KeyCode secretJump = KeyCode.W;
 
         public KeyCode sprint = KeyCode.LeftShift;
         public KeyCode altSprint = KeyCode.LeftControl;

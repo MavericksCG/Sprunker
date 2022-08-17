@@ -22,7 +22,7 @@ namespace Sprunker.Managing {
         private AudioSource[] sources;
 
         [Range(0f, 1f)] [SerializeField] private float audioLerpSpeed;
-        [SerializeField] private float pitchWhenPauseMenuIsActive;
+        [SerializeField] private float volumeWhenPauseMenuIsActive;
 
         [SerializeField] private bool logLastRecordedPosition;
 
@@ -46,7 +46,7 @@ namespace Sprunker.Managing {
 
         private void Update () {
             QuickRestart();
-            ChangeAudioPitches();
+            ChangeAudioVolumes();
             HandleAudioPitchCurve();
         
             if (logLastRecordedPosition) {
@@ -60,19 +60,20 @@ namespace Sprunker.Managing {
             }
         }
 
-        private void ChangeAudioPitches () {
+        private void ChangeAudioVolumes () {
             // Foreach loop for all audio sources in the 'sources' array
             foreach (AudioSource s in sources) {
                 // If the pause menu object is not null, execute all other code
                 if (pmObj != null) {
                     // Check if the pause menu is active in the hierarchy
                     if (pmObj.activeInHierarchy) {
-                        // Set pitches to pitchWhenPauseMenuIsActive (Long Name ngl)
-                        s.pitch = Mathf.Lerp(s.pitch, pitchWhenPauseMenuIsActive, audioLerpSpeed);
+                        // Set pitches to volumeWhenPauseMenuIsActive (Long Name ngl)
+                        s.volume = Mathf.Lerp(s.volume, volumeWhenPauseMenuIsActive, audioLerpSpeed);
+                        s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
                     }
                     else {
-                        // Set pitches to 1 (default) when the pause menu is NOT active in the hierarchy
-                        s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
+                        // Set volumes to 1 (default) when the pause menu is NOT active in the hierarchy
+                        s.volume = Mathf.Lerp(s.volume, 1f, audioLerpSpeed);
                     }
                 }
 
@@ -80,6 +81,7 @@ namespace Sprunker.Managing {
                 if (lcUI != null) {
                     if (lcUI.activeInHierarchy) {
                         s.volume = Mathf.Lerp(s.volume, 0.3f, audioLerpSpeed);
+                        s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
                     }
                     else {
                         s.volume = Mathf.Lerp(s.volume, 1f, audioLerpSpeed);
@@ -90,6 +92,7 @@ namespace Sprunker.Managing {
                 if (goUI != null) {
                     if (goUI.activeInHierarchy) {
                         s.volume = Mathf.Lerp(s.volume, 0.3f, audioLerpSpeed);
+                        s.pitch = Mathf.Lerp(s.pitch, 1f, audioLerpSpeed);
                     }
                     else {
                         s.volume = Mathf.Lerp(s.volume, 0.3f, audioLerpSpeed);

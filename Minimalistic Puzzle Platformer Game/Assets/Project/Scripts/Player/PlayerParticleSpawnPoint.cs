@@ -10,7 +10,7 @@ public class PlayerParticleSpawnPoint : MonoBehaviour {
             transform.position = playerTrans.position + followOffset;
         }
         else {
-            Debug.LogError("<color=red>Property 'playerTrans(Player Transform)' is null!</color>");
+            Debug.LogWarning("<color=red>Property 'playerTrans(Player Transform)' is null!</color>");
         }
     }
 }

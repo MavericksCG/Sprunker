@@ -68,56 +68,6 @@ namespace Sprunker.UserInterface {
             foreach (AudioSource s in gameMusicsAudios) {
                 volumeCurve.AddKey(Time.realtimeSinceStartup, s.volume);
             }
-
-            // Imposter syndrome code incoming!
-            if (menuContainers[0].activeInHierarchy == true) {
-                menuContainers[1].SetActive(false);
-                menuContainers[2].SetActive(false);
-            }
-            else if (menuContainers[1].activeInHierarchy == true) {
-                menuContainers[0].SetActive(false);
-                menuContainers[2].SetActive(false);
-            }                
-            else if (menuContainers[2].activeInHierarchy == true) {
-                menuContainers[0].SetActive(false);
-                menuContainers[1].SetActive(false);
-            }
-            else {
-                return;
-            }
-        }
-
-        public void OpenButtonMenu () {
-            showPlayButtons = !showPlayButtons;
-            
-            if (showPlayButtons) {
-                playButtonsContainer.SetActive(true);
-            }
-            else {
-                playButtonsContainer.SetActive(false);
-            }
-        }
-
-        public void OpenSettings () {
-            showSettingsMenu = !showSettingsMenu;
-
-            if (showSettingsMenu) {
-                settingsOptionsContainer.SetActive(true);
-            }
-            else {
-                settingsOptionsContainer.SetActive(false);
-            }
-        }
-
-        public void OpenAboutMenu () {
-            showAboutMenu = !showAboutMenu;
-
-            if (showAboutMenu) {
-                aboutMenuContainer.SetActive(true);
-            }
-            else {
-                aboutMenuContainer.SetActive(false);
-            }
         }
 
         public void EnableModal () {
@@ -145,8 +95,8 @@ namespace Sprunker.UserInterface {
             Debug.Log("Clicked!");
         }
 
-        public void OpenSpotify() {
-            Application.OpenURL("https://open.spotify.com/user/1csr3mdlgc46rp8fy2eo2yfxg?si=b2fd7dd21335463a");
+        public void OpenGitHub() {
+            Application.OpenURL("https://github.com/MavericksCG");
             Debug.Log("Clicked!");
         }
 

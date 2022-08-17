@@ -63,7 +63,9 @@ namespace Sprunker.Player {
         [SerializeField] private GameObject prompt;
         private GameObject currentTeleporter;
 
-        private bool canTeleport = true;
+        private int maxTeleports = 2; // Specified value for maximum amount of times the player can teleport.
+
+        //private bool canTeleport = true;
 
 
         [Header("GFX")] 
@@ -106,7 +108,14 @@ namespace Sprunker.Player {
 
         private PlayerUtilities utilities;
         private Checkpoint checkpoint;
-        
+
+        [SerializeField] private AudioSource walkAudio; // volume = 0.498
+        [SerializeField] private AudioSource sprintAudio; // volume = 0.751
+
+        [SerializeField] [Range(0f, 1f)] private float audioLerpSpeed;
+
+        [SerializeField] private bool logAvailableTeleports;
+
         [Header("Debugging/Pulldown")]
         [HideInInspector] public bool usePulldown = false;
         [HideInInspector] public float pulldownForce;
@@ -163,6 +172,9 @@ namespace Sprunker.Player {
                 // Write the main camera's priority each frame if the logMainCameraPriority bool is true
                 Debug.Log(mainCamera.Priority);
             }
+
+            if (logAvailableTeleports)
+                Debug.Log(maxTeleports);
         } 
         
 
@@ -185,10 +197,10 @@ namespace Sprunker.Player {
         }
 
         private void HandleTeleportation () {
-            if (Input.GetKey(Keybinds.instance.interact)) {
-                if (currentTeleporter != null && canTeleport) {
-                    canTeleport = false;
+            if (Input.GetKey(Keybinds.instance.interact) && maxTeleports != 0) {
+                if (currentTeleporter != null) { 
                     rb.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+                    maxTeleports--;
                 }
             }
         }
@@ -205,7 +217,7 @@ namespace Sprunker.Player {
 
             #region Jumping
 
-            if ((Input.GetKey(Keybinds.instance.jump) || Input.GetKey(Keybinds.instance.altJump)) && isGrounded) {
+            if ((Input.GetKey(Keybinds.instance.jump) || Input.GetKey(Keybinds.instance.altJump) || Input.GetKey(Keybinds.instance.secretJump)) && isGrounded) {
                 // Add an upwards force to the rigidbody's velocity
                 rb.velocity = Vector2.up * jumpForce;
                 GameObject jp = Instantiate(groundJumpParticle, particleSpawnPoint.position, particleShapeQuat);
@@ -346,13 +358,16 @@ namespace Sprunker.Player {
 
         private void OnTriggerEnter2D (Collider2D col) {
 
-            if (col.CompareTag("Teleporter") && canTeleport) {
+            if (maxTeleports <= 0)
+                Destroy(prompt);
+
+            if (col.CompareTag("Teleporter")) {
                 prompt.SetActive(true);
                 currentTeleporter = col.gameObject;
             }
 
-            else if (col.CompareTag("Teleporter") && !canTeleport)
-                Destroy(prompt);
+            else if (col.CompareTag("Teleporter"))
+                prompt.SetActive(false);
 
 
             if (col.CompareTag("Checkpoint")) {
@@ -384,12 +399,15 @@ namespace Sprunker.Player {
 
         private void OnTriggerExit2D (Collider2D col) {
 
-            if (col.CompareTag("Teleporter") && canTeleport) {
+            if (maxTeleports <= 0)
+                Destroy(prompt);
+
+            if (col.CompareTag("Teleporter")) { 
                 prompt.SetActive(false);
                 currentTeleporter = null;
             }
-            else if (col.CompareTag("Teleporter") && !canTeleport)
-                Destroy(prompt);
+            else if (col.CompareTag("Teleporter"))
+                prompt.SetActive(false);
         }
 
 
@@ -435,5 +453,9 @@ namespace Sprunker.Player {
         }
 
         #endregion
+
+        private void PlayerSounds () {
+
+        }
     }
 }

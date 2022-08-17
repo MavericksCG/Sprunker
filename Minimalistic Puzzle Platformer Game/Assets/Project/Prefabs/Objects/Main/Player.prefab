@@ -196,7 +196,7 @@ MonoBehaviour:
   sprintSpeed: 18
   accelerationSpeed: 0.05
   superJumpForce: 20
-  superJumpCooldown: 40
+  superJumpCooldown: 30
   canSuperJump: 1
   dashSpeed: 50
   dashCooldown: 40
@@ -222,7 +222,6 @@ MonoBehaviour:
   spawnSoundEffect: {fileID: 0}
   usePulldown: 0
   pulldownForce: 0
-  pulldownKey: 115
 --- !u!114 &8216290573756379789
 MonoBehaviour:
   m_ObjectHideFlags: 0
