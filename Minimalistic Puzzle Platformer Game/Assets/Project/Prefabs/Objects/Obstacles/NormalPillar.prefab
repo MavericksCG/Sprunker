@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2590957116651510964}
   - component: {fileID: 2590957116651510922}
   - component: {fileID: 2590957116651510923}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: NormalPillar
   m_TagString: Pillar
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 3187947339433679695}
   - component: {fileID: 3187947339433679694}
   - component: {fileID: 3187947339433679693}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PillarParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

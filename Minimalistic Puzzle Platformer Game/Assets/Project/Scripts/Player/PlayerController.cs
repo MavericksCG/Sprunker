@@ -198,10 +198,11 @@ namespace Sprunker.Player {
 
         private void HandleTeleportation () {
             if (Input.GetKey(Keybinds.instance.interact) && maxTeleports != 0) {
-                if (currentTeleporter != null) { 
+                if (currentTeleporter != null && currentTeleporter.GetComponent<Teleporter>().destination != null) {
                     rb.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
                     maxTeleports--;
                 }
+                else Debug.Log("Destination is null!");
             }
         }
 

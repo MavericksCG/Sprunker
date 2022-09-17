@@ -9,6 +9,7 @@ namespace Sprunker.Managing {
         [SerializeField] private GameObject[] menus;
 
         [SerializeField] private float timeScaleWhenMenuIsActive = 0.3f;
+        [SerializeField] [Range(0f, 1f)] private float lerpSpeed;
 
         /// <summary>
         /// Enabling all menu buttons when the game starts
@@ -27,11 +28,11 @@ namespace Sprunker.Managing {
                 }
             }
 
-            if (menus[0].activeInHierarchy || menus[1].activeInHierarchy || menus[2].activeInHierarchy) {
-                Time.timeScale = timeScaleWhenMenuIsActive;
+            if (menus[0].activeInHierarchy || menus[1].activeInHierarchy || menus[2].activeInHierarchy || menus[3].activeInHierarchy) {
+                Time.timeScale = Mathf.Lerp(Time.timeScale, timeScaleWhenMenuIsActive, lerpSpeed);
             }
             else {
-                Time.timeScale = 1;
+                Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, lerpSpeed); ;
             }
         }
     }

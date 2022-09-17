@@ -63,6 +63,10 @@ namespace Sprunker.UserInterface {
 
         #region Button Handling
 
+        public void Restart () {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         public void ExitToDesktop () {
             Application.Quit();
         } 
