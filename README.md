@@ -1,5 +1,5 @@
 ## Sprunker is a minimalistic and colourful platformer game
-### Coming out whenever it's done.
+### Coming out on 21st December, 2022.
 ---
 **My Socials** 
 
