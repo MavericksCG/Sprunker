@@ -22,9 +22,11 @@ namespace Sprunker.Managing {
         public KeyCode sprint = KeyCode.LeftShift;
         public KeyCode altSprint = KeyCode.LeftControl;
 
-        public KeyCode superJump = KeyCode.Tab;
+        public KeyCode superJump = KeyCode.Mouse2;
+        /* Keyboard */ public KeyCode superJumpKeyboard = KeyCode.Tab;
 
         public KeyCode slowMotion = KeyCode.Mouse1;
+        // fix later ---> /* Keyboard */ public KeyCode slowMotionKeyboard = KeyCode.Quote;
 
         public KeyCode quickRestart = KeyCode.R;
 
@@ -32,10 +34,11 @@ namespace Sprunker.Managing {
 
         public KeyCode pauseOrResume = KeyCode.Escape;
 
-        public KeyCode dashKey = KeyCode.LeftAlt;
+        public KeyCode dashKey = KeyCode.Mouse3;
+        /* Keyboard */ public KeyCode dashKeyKeyboard = KeyCode.LeftAlt;
 
         public KeyCode openCloseAdvancedMenu = KeyCode.F1;
         public KeyCode openCloseStandardMenu = KeyCode.F2;
-
+        public KeyCode openCloseSecondPage = KeyCode.F3;
     }
 }

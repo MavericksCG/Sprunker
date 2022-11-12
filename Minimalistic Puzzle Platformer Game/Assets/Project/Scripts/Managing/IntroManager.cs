@@ -39,5 +39,4 @@ public class IntroManager : MonoBehaviour {
             bar.LoadScene(2);
         }
     }
-
 }

@@ -22,8 +22,9 @@ namespace Sprunker.Debugging.Advanced {
         [SerializeField] private TMP_InputField pulldownField;
 
 
-        [Header("Player Jump Force")]
-        [SerializeField] private TMP_InputField setForceField; 
+        [Header("Value Related")]
+        [SerializeField] private TMP_InputField setForceField;
+        [SerializeField] private TMP_InputField setSuperJumpForceField;
 
 
         [Header("Enabling and Disabling menus")]
@@ -43,6 +44,12 @@ namespace Sprunker.Debugging.Advanced {
         [Header("Bool Checks")] 
         private bool showAdvancedMenu;
         private bool showStandardMenu;
+        private bool showPageTwo;
+        
+
+        [Header("Second Page")] [SerializeField]
+        private GameObject secondMenu;
+        
 
 
         private void Awake () {
@@ -57,27 +64,37 @@ namespace Sprunker.Debugging.Advanced {
         }
 
         private void Update () {
-            if (Input.GetKeyDown(binds.openCloseAdvancedMenu)) {
+            if (Input.GetKeyDown(binds.openCloseAdvancedMenu)) 
                 showAdvancedMenu = !showAdvancedMenu;
-            }
+            
 
-            if (Input.GetKeyDown(binds.openCloseStandardMenu)) {
+            if (Input.GetKeyDown(binds.openCloseStandardMenu)) 
                 showStandardMenu = !showStandardMenu;
-            }
 
-            if (showStandardMenu) {
+
+            if (Input.GetKeyDown(binds.openCloseSecondPage))
+                showPageTwo = !showPageTwo;
+                
+            // Standard Menu
+            if (showStandardMenu) 
                 standardMenu.SetActive(true);
-            }
-            else {
+            
+            else 
                 standardMenu.SetActive(false);
-            }
-
-            if (showAdvancedMenu) {
+            
+            // Advanced Menu
+            if (showAdvancedMenu) 
                 advancedMenuUI.SetActive(true);
-            }
-            else {
+            
+            else 
                 advancedMenuUI.SetActive(false);
-            }
+            
+            // Second Page (Advanced Menu)
+            if (showPageTwo)
+                secondMenu.SetActive(true);
+            else 
+                secondMenu.SetActive(false);
+            
         }
 
         public void LoadSpecificScene (int sceneIndex) {
@@ -131,6 +148,24 @@ namespace Sprunker.Debugging.Advanced {
 
                 // Set Value 
                 c.jumpForce = (float)force;
+
+                Debug.Log("updated");
+            }
+        }
+
+        public void SetPlayerSuperJumpForce() {
+            if (c != null) {
+                // Conversion
+                int force = Convert.ToInt32(setSuperJumpForceField.text);
+                
+                // Set Value
+                c.superJumpForce = (float)force;
+                Debug.Log("updated sj");
+                // Same thing.. 
+                // The Super jump value is by default not an integer, and just setting it to the force integer would return an error
+                // Casting it as a float though, makes unity think that the original value that is being set is a float value and thus, is acceptable.
+                // Might be other workarounds to this, something to keep in mind later I guess.
+
             }
         }
 
@@ -149,6 +184,10 @@ namespace Sprunker.Debugging.Advanced {
 
             // Set Value
             c.pulldownForce = (float)force;
+        }
+
+        public void RechargeSuperJump() {
+            c.canSuperJump = true;
         }
     }
 

@@ -6,6 +6,7 @@ using UnityEngine;
 using Sprunker.Managing;
 using Sprunker.Miscellaneous;
 using Sprunker.PuzzleElements;
+using Sprunker.Universal;
 
 namespace Sprunker.Player {
 
@@ -42,7 +43,7 @@ namespace Sprunker.Player {
 
 
         [Header("Movement/Jumping/Super-Jump")]
-        [SerializeField] private float superJumpForce;
+        public float superJumpForce;
 
         [Range(0.1f, 100f)] [SerializeField] private float superJumpCooldown;
 
@@ -50,7 +51,7 @@ namespace Sprunker.Player {
 
 
         [Header("Movement/Dashing")] 
-        [SerializeField] private float dashSpeed;
+        public float dashSpeed;
         [SerializeField] [Range(0f, 120f)] private float dashCooldown;
         
         // This variable will be used to check the movement direction while dashing
@@ -63,7 +64,7 @@ namespace Sprunker.Player {
         [SerializeField] private GameObject prompt;
         private GameObject currentTeleporter;
 
-        private int maxTeleports = 2; // Specified value for maximum amount of times the player can teleport.
+        [SerializeField] private int maxTeleports = 2; // Specified value for maximum amount of times the player can teleport.
 
         //private bool canTeleport = true;
 
@@ -113,13 +114,19 @@ namespace Sprunker.Player {
         [SerializeField] private AudioSource sprintAudio; // volume = 0.751
 
         [SerializeField] [Range(0f, 1f)] private float audioLerpSpeed;
-
+        
+        // Logging 
         [SerializeField] private bool logAvailableTeleports;
+        [SerializeField] private bool logCanSuperJump;
+        [SerializeField] private bool logSuperJumpForce;
+        [SerializeField] private bool logJumpForce;
 
+        
         [Header("Debugging/Pulldown")]
         [HideInInspector] public bool usePulldown = false;
         [HideInInspector] public float pulldownForce;
         private KeyCode pulldownKey = KeyCode.S;
+
         
         #endregion
 
@@ -147,6 +154,7 @@ namespace Sprunker.Player {
                 utilities.Spawn(spawnSoundEffect);
             else
                 return;
+            
         }
 
 
@@ -174,7 +182,16 @@ namespace Sprunker.Player {
             }
 
             if (logAvailableTeleports)
-                Debug.Log(maxTeleports);
+                Debug.Log("Maximum Teleports : " + maxTeleports);
+
+            if (logCanSuperJump)
+                Debug.Log("Can Super Jump : " + canSuperJump);
+
+            if (logSuperJumpForce)
+                Debug.Log("Super Jump Force : " + superJumpForce);
+            
+            if (logJumpForce)
+                Debug.Log("Jump Force : " + jumpForce);
         } 
         
 
@@ -183,7 +200,9 @@ namespace Sprunker.Player {
             HandleMovement();
             HandleTeleportation();
             HandleDebugMovement();
+
         }
+
 
         private void HandleDebugMovement () {
             // Check if usePulldown boolean is true
@@ -245,24 +264,28 @@ namespace Sprunker.Player {
             #endregion
 
             // Super Jump
-            if (Input.GetKey(Keybinds.instance.superJump) && canSuperJump) {
+            if (Input.GetKey(Keybinds.instance.superJump) && canSuperJump || Input.GetKey(Keybinds.instance.superJumpKeyboard) && canSuperJump) {
                 StartCoroutine(SuperJump());
             }
 
             #region Dashing
 
-            if (Input.GetKey(Keybinds.instance.dashKey) && canDash) {
+            if (Input.GetKey(Keybinds.instance.dashKey) && canDash || Input.GetKey(Keybinds.instance.dashKeyKeyboard) && canDash) {
                 StartCoroutine(Dash());
             }
             
             // If Statements to check which input key was pressed
-            if (Input.GetKey(KeyCode.D)) {
-                dir = 1;
-            }
+            if (Input.GetKey(KeyCode.D)) 
+                dir = 1; // Forwards
+            
+            if (Input.GetKey(KeyCode.A)) 
+                dir = 2; // Backwards
 
-            if (Input.GetKey(KeyCode.A)) {
-                dir = 2;
-            }
+            else 
+                dir = 1; // Forwards
+
+            // Essentially, if the player isn't pressing any key we just default the position to 1 (Forwards) to avoid unnatural movements
+            // But, the player will still be able to dash backwards, that is, if they want to... but who would? honestly.
 
             #endregion
 
@@ -412,7 +435,7 @@ namespace Sprunker.Player {
         }
 
 
-        private void Die () {
+        public void Die () {
             // Invoke the EndGame method in the GameManager
             GameManager.instance.EndGame();
             
@@ -454,9 +477,5 @@ namespace Sprunker.Player {
         }
 
         #endregion
-
-        private void PlayerSounds () {
-
-        }
     }
 }

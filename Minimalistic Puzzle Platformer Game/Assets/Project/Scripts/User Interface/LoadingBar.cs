@@ -8,6 +8,21 @@ namespace Sprunker.UserInterface {
 
         [SerializeField] private GameObject loadingCanvas;
         [SerializeField] private Slider bar;
+        [SerializeField] private Gradient loadingBarGradient;
+
+        [SerializeField] private Image sliderFill;
+
+
+        private void Start () {
+            if (sliderFill != null) {
+                sliderFill.color = loadingBarGradient.Evaluate(1f);
+            }
+        }
+
+        private void Update () {
+            if (sliderFill != null)
+                sliderFill.color = loadingBarGradient.Evaluate(bar.normalizedValue);
+        }
 
         public void LoadScene (int index) {
             StartCoroutine(LoadSceneAsynchronously(index));

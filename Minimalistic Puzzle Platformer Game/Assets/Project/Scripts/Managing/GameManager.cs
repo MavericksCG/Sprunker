@@ -12,6 +12,7 @@ namespace Sprunker.Managing {
         public GameObject indi;
         public GameObject pmObj;
         public GameObject dindi;
+        public GameObject lsUI;
 
         public GameObject player;
 
@@ -43,14 +44,26 @@ namespace Sprunker.Managing {
             m = FindObjectOfType<SlowMotion>();
         }
 
+        private void Start () {
+            // Set Last Recorded position to Player's starting position
+            lastRecordedPosition = player.transform.position;
+        }
+
 
         private void Update () {
             QuickRestart();
             ChangeAudioVolumes();
             HandleAudioPitchCurve();
-        
+
+
             if (logLastRecordedPosition) {
                 Debug.Log(lastRecordedPosition);
+            }
+
+            if (lsUI != null && pmObj != null) { 
+                if (lsUI.activeInHierarchy) {
+                    pmObj.SetActive(false);
+                }
             }
         }
 
@@ -127,9 +140,14 @@ namespace Sprunker.Managing {
             goUI.SetActive(true);
             indi.SetActive(false);
             dindi.SetActive(false);
-            Destroy(pmObj);
+            pmObj.SetActive(false);
             Time.timeScale = 1f;
-            Destroy(player);
+            
+            // Set the player to an inactive state instead of destroying it.
+            // Required because of we are returning the player to the checkpoint now instead of reloading the whole level.
+            // There are definitely better ways to go about this and I might even reconsider this approach later on but for now, its just too much work.
+            // And I need to get the game out by 29th November...
+            player.SetActive(false);
         }
         
         
