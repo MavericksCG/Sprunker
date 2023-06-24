@@ -39,7 +39,7 @@ namespace Sprunker.Debugging.Standard {
             // Updating the graph
             fpsCurve.AddKey(Time.realtimeSinceStartup, fps);
 
-            fpsUI.text = "FPS : " + fps.ToString("0");
+            fpsUI.text = "fps : " + fps.ToString("0");
 
             if (fps >= 60) {
                 fpsUI.color = Color.green;

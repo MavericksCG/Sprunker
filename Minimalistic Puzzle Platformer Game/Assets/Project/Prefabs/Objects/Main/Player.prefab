@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 8216290573756379804}
   - component: {fileID: 8216290573756379805}
   - component: {fileID: 8216290573756379806}
+  - component: {fileID: 2923642275131312864}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -201,7 +202,11 @@ MonoBehaviour:
   dashSpeed: 50
   dashCooldown: 40
   canDash: 1
+  slowMotionSuperJumpForce: 25
+  slowMotionJumpForce: 14
+  slowMotionDashForce: 56
   prompt: {fileID: 0}
+  maxTeleports: 2
   particleDestructionDelay: 0.5
   groundJumpParticle: {fileID: 1995933553493812909, guid: bce91c004e6eb464aab7420ac0706b95, type: 3}
   groundLandCollisionParticle: {fileID: 1995933553493812909, guid: e35bf890e7dae4e4888d6c5feb544fcd, type: 3}
@@ -220,6 +225,13 @@ MonoBehaviour:
   logMainCameraPriority: 0
   startPos: {x: 0, y: 0, z: 0}
   spawnSoundEffect: {fileID: 0}
+  walkAudio: {fileID: 0}
+  sprintAudio: {fileID: 0}
+  audioLerpSpeed: 0
+  logAvailableTeleports: 0
+  logCanSuperJump: 0
+  logSuperJumpForce: 0
+  logJumpForce: 0
   usePulldown: 0
   pulldownForce: 0
 --- !u!114 &8216290573756379789
@@ -300,3 +312,110 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!96 &2923642275131312864
+TrailRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216290573756379783}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -1
+  m_Time: 0.09
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.49417305
+        inSlope: 0.0000036348772
+        outSlope: 0.0000036348772
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.31771007
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+      key1: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_MinVertexDistance: 0
+  m_Autodestruct: 0
+  m_Emitting: 1

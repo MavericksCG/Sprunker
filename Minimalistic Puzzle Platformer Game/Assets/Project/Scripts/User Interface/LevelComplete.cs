@@ -5,10 +5,12 @@ namespace Sprunker.UserInterface {
 
     public class LevelComplete : MonoBehaviour {
 
+        [Header("Assignables")]
         public int loadNextScene;
-
+        private LoadingBar lb;
 
         private void Start () {
+            lb = FindObjectOfType<LoadingBar>();
             loadNextScene = SceneManager.GetActiveScene().buildIndex + 1;
         }
 

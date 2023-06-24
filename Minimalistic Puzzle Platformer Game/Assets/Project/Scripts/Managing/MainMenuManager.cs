@@ -22,7 +22,7 @@ namespace Sprunker.Managing {
 
         private void Update () {
             // Disable all menus if the player presses esc
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (Input.GetKeyDown(Keybinds.instance.closeAllTabs)) {
                 foreach (GameObject obj in menus) {
                     obj.SetActive(false);
                 }

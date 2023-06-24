@@ -53,7 +53,7 @@ namespace Sprunker.PuzzleElements {
                     pc.canSuperJump = false;
                 }
 
-                Debug.Log("triggered collider : " + col.gameObject.name);
+                // Debug.Log("triggered collider : " + col.gameObject.name);
                 
                 // Play the checkpoint sound effect ONLY when it is actually assigned
                 if (checkpointSFX != null)
@@ -74,7 +74,7 @@ namespace Sprunker.PuzzleElements {
             if (prompt != null) {
                 prompt.SetActive(true);
                 promptAnim.SetTrigger("sizein");
-                Debug.Log("activation");
+                // Debug.Log("activation");
             }
 
             yield return new WaitForSeconds(waitTime);
@@ -90,7 +90,7 @@ namespace Sprunker.PuzzleElements {
                 // Because there are going to be multiple checkpoints on each level so that would just give me a headache.
                 prompt.SetActive(false);
 
-                Debug.Log("successfully completed");
+                // Debug.Log("successfully completed");
             }
         }
 

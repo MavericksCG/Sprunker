@@ -95,13 +95,8 @@ namespace Sprunker.UserInterface {
             Debug.Log("Clicked!");
         }
 
-        public void OpenGitHub() {
-            Application.OpenURL("https://github.com/MavericksCG");
-            Debug.Log("Clicked!");
-        }
-
-        public void OpenItch() {
-            Application.OpenURL("https://maverickscg.itch.io/");
+        public void OpenTwitter() {
+            Application.OpenURL("https://twitter.com/mvricksdev");
             Debug.Log("Clicked!");
         }
 

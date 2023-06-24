@@ -75,6 +75,10 @@ namespace Sprunker.UserInterface {
             settingsUI.SetActive(true);
         }
 
+        public void ExitToTitle () {
+            SceneManager.LoadScene(1);
+        }
+
         #endregion
     }
 

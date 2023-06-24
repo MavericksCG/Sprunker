@@ -35,26 +35,9 @@ namespace Sprunker.Universal {
         [SerializeField] [Range(0f, 1f)] private float distortionSmoothing;
         [SerializeField] [Range(0f, 1f)] private float vignetteSmoothing;
         [SerializeField] [Range(0f, 1f)] private float timeSmoothing;
-        
-        [Header("Movement Buffs")]
-        [SerializeField] private float slowMotionSuperJumpForce = 25f;
-        [SerializeField] private float slowMotionJumpForce = 14f;
-        [SerializeField] private float slowMotionDashForce = 56f;
 
         private PlayerController pc;
 
-
-        // private void SlowMotionMovementBuffs () {
-   
-        // }
-        //
-        // if (sm.slowMotionActive) {
-        //     SlowMotionMovementBuffs();
-        // }
-        // else {
-        //     
-        // }
-            
         private void Start () {
             volume.profile.TryGetSettings(out b);
             volume.profile.TryGetSettings(out ca);
@@ -82,10 +65,6 @@ namespace Sprunker.Universal {
             ca.intensity.value = Mathf.Lerp(ca.intensity.value, desiredAbberationValue, abberationSmoothing);
             ld.intensity.value = Mathf.Lerp(ld.intensity.value, desiredDistortionValue, distortionSmoothing);
             vg.intensity.value = Mathf.Lerp(vg.intensity.value, desiredVignetteValue, vignetteSmoothing);
-            
-            pc.superJumpForce = slowMotionSuperJumpForce;
-            pc.jumpForce = slowMotionJumpForce;
-            pc.dashSpeed = slowMotionDashForce;
         }
 
         private void ExitSlowMotion () {
@@ -96,10 +75,6 @@ namespace Sprunker.Universal {
             ca.intensity.value = Mathf.Lerp(ca.intensity.value, .02f, abberationSmoothing);
             ld.intensity.value = Mathf.Lerp(ld.intensity.value, 0f, distortionSmoothing);
             vg.intensity.value = Mathf.Lerp(vg.intensity.value, 0.136f, vignetteSmoothing);
-            
-            pc.jumpForce = 10f;
-            pc.superJumpForce = 20f;
-            pc.dashSpeed = 50f;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Sprunker.Debugging.Standard {
 
 
         private void Update () {
-            counterUI.text = "Timescale : " + Time.timeScale.ToString();
+            counterUI.text = "timescale : " + Time.timeScale.ToString();
         }
 
     }

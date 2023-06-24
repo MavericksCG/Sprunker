@@ -11,7 +11,7 @@ namespace Sprunker.UserInterface {
         private void Start () {
             if (tipText != null) {
                 int rand = Random.Range(0, tips.Length);
-                tipText.text = "Did you know : " + tips[rand];
+                tipText.text = tips[rand];
 
             }
         }

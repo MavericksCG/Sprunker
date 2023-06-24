@@ -18,6 +18,9 @@ TagManager:
   - Music Object
   - Contract Ground
   - Checkpoint
+  - Teleport Audio
+  - Super Jump Ready Audio
+  - Dash Ready Audio
   layers:
   - Default
   - TransparentFX

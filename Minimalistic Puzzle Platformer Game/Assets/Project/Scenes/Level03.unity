@@ -32840,6 +32840,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2957752979258001222, guid: 2ddba4673a97d3c46818ef16ebec0ac4, type: 3}
   m_PrefabInstance: {fileID: 1018145407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1019716407
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1444713697}
+    m_Modifications:
+    - target: {fileID: 4979241220501718290, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_Name
+      value: Teleport
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718290, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_TagString
+      value: Teleport Audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+--- !u!4 &1019716408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4979241220501718291, guid: 1c610d616eae27f4aa2342779d161685, type: 3}
+  m_PrefabInstance: {fileID: 1019716407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1027838030
 GameObject:
   m_ObjectHideFlags: 0
@@ -41920,6 +41986,7 @@ Transform:
   - {fileID: 287836119}
   - {fileID: 1268008650}
   - {fileID: 1735027215}
+  - {fileID: 1019716408}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54765,6 +54832,9 @@ MonoBehaviour:
   dashSpeed: 50
   dashCooldown: 40
   canDash: 1
+  slowMotionSuperJumpForce: 25
+  slowMotionJumpForce: 14
+  slowMotionDashForce: 56
   prompt: {fileID: 6702066119870984768}
   maxTeleports: 2
   particleDestructionDelay: 0.5
@@ -54782,16 +54852,16 @@ MonoBehaviour:
   superJumpSFX: {fileID: 770844440}
   jumpSFX: {fileID: 3925899065371207636}
   mainCamera: {fileID: 5781169884650357447}
+  cam: {fileID: 0}
   logMainCameraPriority: 0
   startPos: {x: 0, y: 0, z: 0}
   spawnSoundEffect: {fileID: 287836120}
-  walkAudio: {fileID: 0}
-  sprintAudio: {fileID: 0}
-  audioLerpSpeed: 0
   logAvailableTeleports: 0
   logCanSuperJump: 0
   logSuperJumpForce: 0
   logJumpForce: 0
+  logVirtualCameraPosition: 0
+  logCameraPosition: 0
   usePulldown: 0
   pulldownForce: 0
 --- !u!114 &2717643144695999937
@@ -54818,9 +54888,6 @@ MonoBehaviour:
   distortionSmoothing: 0.199
   vignetteSmoothing: 0.072
   timeSmoothing: 0.137
-  slowMotionSuperJumpForce: 25
-  slowMotionJumpForce: 14
-  slowMotionDashForce: 56
 --- !u!1 &2717643144695999947
 GameObject:
   m_ObjectHideFlags: 0

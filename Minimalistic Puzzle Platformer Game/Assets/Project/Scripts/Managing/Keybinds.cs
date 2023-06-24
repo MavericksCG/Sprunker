@@ -29,6 +29,7 @@ namespace Sprunker.Managing {
         // fix later ---> /* Keyboard */ public KeyCode slowMotionKeyboard = KeyCode.Quote;
 
         public KeyCode quickRestart = KeyCode.R;
+        public KeyCode quickEnd = KeyCode.Z;
 
         public KeyCode interact = KeyCode.E;
 
@@ -40,5 +41,8 @@ namespace Sprunker.Managing {
         public KeyCode openCloseAdvancedMenu = KeyCode.F1;
         public KeyCode openCloseStandardMenu = KeyCode.F2;
         public KeyCode openCloseSecondPage = KeyCode.F3;
+
+        public KeyCode introProceed = KeyCode.Return;
+        public KeyCode closeAllTabs = KeyCode.Escape;
     }
 }

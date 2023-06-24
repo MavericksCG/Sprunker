@@ -6,13 +6,14 @@ using System;
 namespace Sprunker.Managing {
     public class GameManager : MonoBehaviour {
 
+        // fuck me for not making this shit understandable early on.
         [Header("Assignables")] 
-        public GameObject lcUI;
-        public GameObject goUI;
-        public GameObject indi;
-        public GameObject pmObj;
-        public GameObject dindi;
-        public GameObject lsUI;
+        public GameObject lcUI; // Level Complete
+        public GameObject goUI; // Game Over
+        public GameObject indi; // Indicator
+        public GameObject pmObj; // Pause Menu
+        public GameObject dindi; // Dash Indicator
+        public GameObject lsUI; // Loading Screen
 
         public GameObject player;
 
@@ -51,7 +52,7 @@ namespace Sprunker.Managing {
 
 
         private void Update () {
-            QuickRestart();
+            QuickMethods();
             ChangeAudioVolumes();
             HandleAudioPitchCurve();
 
@@ -115,12 +116,14 @@ namespace Sprunker.Managing {
             }
         }
 
-        private void QuickRestart () {
-
+        private void QuickMethods () {
             if (Input.GetKey(Keybinds.instance.quickRestart)) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
 
+            if (Input.GetKey(Keybinds.instance.quickEnd)) {
+                EndGame();
+            }
         }
 
 
@@ -146,7 +149,6 @@ namespace Sprunker.Managing {
             // Set the player to an inactive state instead of destroying it.
             // Required because of we are returning the player to the checkpoint now instead of reloading the whole level.
             // There are definitely better ways to go about this and I might even reconsider this approach later on but for now, its just too much work.
-            // And I need to get the game out by 29th November...
             player.SetActive(false);
         }
         

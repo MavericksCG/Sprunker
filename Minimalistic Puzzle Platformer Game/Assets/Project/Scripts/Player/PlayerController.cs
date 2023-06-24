@@ -45,19 +45,26 @@ namespace Sprunker.Player {
         [Header("Movement/Jumping/Super-Jump")]
         public float superJumpForce;
 
-        [Range(0.1f, 100f)] [SerializeField] private float superJumpCooldown;
+        [Range(0.1f, 100f), SerializeField] private float superJumpCooldown;
 
         [HideInInspector] public bool canSuperJump = true;
 
 
         [Header("Movement/Dashing")] 
         public float dashSpeed;
-        [SerializeField] [Range(0f, 120f)] private float dashCooldown;
+        [Range(0f, 120f), SerializeField] private float dashCooldown;
         
         // This variable will be used to check the movement direction while dashing
         private int dir = 1;
 
         [HideInInspector] public bool canDash = true;
+
+        [Header("Movement/Slow-Motion/Slow-Motion-Buffs")]
+        [SerializeField] private float slowMotionSuperJumpForce = 25f;
+        [SerializeField] private float slowMotionJumpForce = 14f;
+        [SerializeField] private float slowMotionDashForce = 56f;
+        
+        private SlowMotion sm;
 
 
         [Header("Teleportation")] 
@@ -97,10 +104,16 @@ namespace Sprunker.Player {
         [SerializeField] private AudioSource dashSFX;
         [SerializeField] private AudioSource superJumpSFX;
         [SerializeField] private AudioSource jumpSFX;
-        
-        
+        private AudioSource teleportSFX;
+        private AudioSource superJumpReadySFX;
+        private AudioSource dashReadySFX;
+        // [SerializeField] private AudioSource walkAudio; // volume = 0.498
+        // [SerializeField] private AudioSource sprintAudio; // volume = 0.751
+
+
         [Header("Other")]
         [SerializeField] private CinemachineVirtualCamera mainCamera;
+        [SerializeField] private Camera cam;
         [SerializeField] private bool logMainCameraPriority;
 
         [HideInInspector] public Vector3 startPos;
@@ -109,17 +122,15 @@ namespace Sprunker.Player {
 
         private PlayerUtilities utilities;
         private Checkpoint checkpoint;
-
-        [SerializeField] private AudioSource walkAudio; // volume = 0.498
-        [SerializeField] private AudioSource sprintAudio; // volume = 0.751
-
-        [SerializeField] [Range(0f, 1f)] private float audioLerpSpeed;
         
-        // Logging 
+
+        [Header("Logging")]
         [SerializeField] private bool logAvailableTeleports;
         [SerializeField] private bool logCanSuperJump;
         [SerializeField] private bool logSuperJumpForce;
         [SerializeField] private bool logJumpForce;
+        [SerializeField] private bool logVirtualCameraPosition;
+        [SerializeField] private bool logCameraPosition;
 
         
         [Header("Debugging/Pulldown")]
@@ -138,7 +149,8 @@ namespace Sprunker.Player {
             // Get Scripts
             checkpoint = FindObjectOfType<Checkpoint>();
             utilities = GetComponent<PlayerUtilities>();
-
+            sm = GetComponent<SlowMotion>();
+                
             // Set a quaternion for all of the particle rotations
             particleShapeQuat = Quaternion.Euler(90f, 90f, 0f);
         }
@@ -154,7 +166,11 @@ namespace Sprunker.Player {
                 utilities.Spawn(spawnSoundEffect);
             else
                 return;
-            
+
+            // Get Teleport Audio Source
+            teleportSFX = GameObject.FindGameObjectWithTag("Teleport Audio").GetComponent<AudioSource>();
+            superJumpReadySFX = GameObject.FindGameObjectWithTag("Super Jump Ready Audio").GetComponent<AudioSource>();
+            dashReadySFX = GameObject.FindGameObjectWithTag("Dash Ready Audio").GetComponent<AudioSource>();
         }
 
 
@@ -175,12 +191,22 @@ namespace Sprunker.Player {
                     SwitchCamera.instance.RevertPriorityChange();
                 }
             }
+        } 
+        
 
-            if (logMainCameraPriority) {
+        private void FixedUpdate () {
+            // Call Methods
+            HandleMovement();
+            HandleTeleportation();
+            HandleDebugMovement();
+            HandleLogging();
+        }
+
+        private void HandleLogging () {
+            if (logMainCameraPriority) 
                 // Write the main camera's priority each frame if the logMainCameraPriority bool is true
                 Debug.Log(mainCamera.Priority);
-            }
-
+            
             if (logAvailableTeleports)
                 Debug.Log("Maximum Teleports : " + maxTeleports);
 
@@ -192,15 +218,12 @@ namespace Sprunker.Player {
             
             if (logJumpForce)
                 Debug.Log("Jump Force : " + jumpForce);
-        } 
-        
-
-        private void FixedUpdate () {
-            // Call Methods
-            HandleMovement();
-            HandleTeleportation();
-            HandleDebugMovement();
-
+            
+            if (logVirtualCameraPosition)
+                Debug.Log("Virtual Camera Position : " + mainCamera.transform.position);
+            
+            if (logCameraPosition)
+                Debug.Log("Camera Position : " + cam.transform.position);
         }
 
 
@@ -219,6 +242,7 @@ namespace Sprunker.Player {
             if (Input.GetKey(Keybinds.instance.interact) && maxTeleports != 0) {
                 if (currentTeleporter != null && currentTeleporter.GetComponent<Teleporter>().destination != null) {
                     rb.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+                    teleportSFX.Play();
                     maxTeleports--;
                 }
                 else Debug.Log("Destination is null!");
@@ -289,9 +313,29 @@ namespace Sprunker.Player {
 
             #endregion
 
+            #region SlowMotionMovementBuffs
+
+            if (sm != null) {
+
+                if (sm.slowMotionActive) {
+                    // Changing values to slow motion activated values
+                    jumpForce = slowMotionJumpForce;
+                    dashSpeed = slowMotionDashForce;
+                    superJumpForce = slowMotionSuperJumpForce;
+                }
+                else {
+                    // Resetting values
+                    jumpForce = 10;
+                    superJumpForce = 20;
+                    dashSpeed = 50;
+                }
+
+            }
+
+            #endregion
+            
             // Updating graphs
             speedCurve.AddKey(Time.realtimeSinceStartup, moveSpeed);
-
         }
 
 
@@ -314,6 +358,7 @@ namespace Sprunker.Player {
             yield return new WaitForSeconds(dashCooldown);
 
             canDash = true;
+            dashReadySFX.Play();
         }
 
 
@@ -329,7 +374,7 @@ namespace Sprunker.Player {
 
             // Set canSuperJump back to true 
             canSuperJump = true;
-
+            superJumpReadySFX.Play();
         }
 
 

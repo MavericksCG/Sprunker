@@ -12,7 +12,7 @@ namespace Sprunker.Debugging.Stanadard {
         private void Update () {
 
             if (player != null) {
-                speedUI.text = "Speed : " + controller.moveSpeed.ToString();
+                speedUI.text = "player speed : " + controller.moveSpeed.ToString();
             }
             else {
                 return;

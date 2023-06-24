@@ -6,7 +6,7 @@ namespace Sprunker.UserInterface {
 
 	public class SuperJumpIndicator : MonoBehaviour {
 
-		[Header("VARIABLES")] [Space] public TextMeshProUGUI superJumpIndicatorUI;
+		[Header("VARIABLES"), Space] public TextMeshProUGUI superJumpIndicatorUI;
 
 		public PlayerController controller;
 
@@ -14,14 +14,14 @@ namespace Sprunker.UserInterface {
 		private void Update () {
 			if (controller != null) {
 				if (controller.canSuperJump) {
-					superJumpIndicatorUI.text = "Super Jump : AVAILABLE";
+					superJumpIndicatorUI.text = "Super Jump : READY";
 				}
 				else if (!controller.canSuperJump) {
-					superJumpIndicatorUI.text = "Super Jump : UNAVAILABLE";
+					superJumpIndicatorUI.text = "Super Jump : RECHARGING...";
 				}
 			}
 			else {
-				superJumpIndicatorUI.text = "Can't Locate <color=red>SuperJumpIndicator.cs</color> in Project/Scripts/User Interface";
+				superJumpIndicatorUI.text = "Can't Locate <color=red>SuperJumpIndicator.cs</color> in Assets/Project/Scripts/User Interface!";
 			}
 
 		}
