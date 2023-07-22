@@ -6,4 +6,4 @@
 - [Itch](https://maverickscg.itch.io/)
 - [Reddit](https://www.reddit.com/user/DankMavericks)
 - [Twitter](https://twitter.com/mvricksdev)
-- [Instagram](instagram.com/gokart.mish/)
+- [Instagram](https://instagram.com/gokart.mish/)
