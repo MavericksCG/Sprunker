@@ -5,5 +5,5 @@
 
 - [Itch](https://maverickscg.itch.io/)
 - [Reddit](https://www.reddit.com/user/DankMavericks)
-- [Website](https://maverickscg.github.io/)
-- [YouTube](https://www.youtube.com/channel/UC-GC41tCMv0TkDx0zddTK7w)
+- [Twitter](https://twitter.com/mvricksdev)
+- [Instagram](https://instagram.com/gokart.mish/)
