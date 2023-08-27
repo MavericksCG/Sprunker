@@ -21,6 +21,7 @@ TagManager:
   - Teleport Audio
   - Super Jump Ready Audio
   - Dash Ready Audio
+  - Ground Check Position
   layers:
   - Default
   - TransparentFX

@@ -297,9 +297,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadingBar, Assembly-CSharp
-        m_MethodName: ReloadCurrentScene
+      - m_Target: {fileID: 4127989561546779326}
+        m_TargetAssemblyTypeName: Sprunker.UserInterface.LevelComplete, Assembly-CSharp
+        m_MethodName: Retry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -973,10 +973,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadingBar, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 3
+      - m_Target: {fileID: 4127989561546779326}
+        m_TargetAssemblyTypeName: Sprunker.UserInterface.LevelComplete, Assembly-CSharp
+        m_MethodName: ExitToTitle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1418,9 +1418,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadingBar, Assembly-CSharp
-        m_MethodName: LoadNextScene
+      - m_Target: {fileID: 4127989561546779326}
+        m_TargetAssemblyTypeName: Sprunker.UserInterface.LevelComplete, Assembly-CSharp
+        m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

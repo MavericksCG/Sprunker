@@ -1,6 +1,6 @@
 using UnityEngine;
-using Sprunker.Managing;
 using Sprunker.UserInterface;
+using TMPro;
 
 namespace Sprunker.Managing {
 
@@ -11,6 +11,7 @@ namespace Sprunker.Managing {
         [SerializeField] private AudioSource[] gameMusicsAudios;
         [SerializeField] private GameObject quitModal;
         [SerializeField] private AudioSource type;
+        [SerializeField] private TextMeshProUGUI loadingText;
 
         private LoadingBar bar;
         private int randIndex;
@@ -44,6 +45,7 @@ namespace Sprunker.Managing {
                 type.Play(); // Play a satisfying type sound
                 // Access the LoadScene(); function in the loading bar and load the tutorial
                 bar.LoadScene(1);
+                loadingText.gameObject.SetActive(true);
             }
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 // Turn on modal window so as to not quit the game abruptly and give the player a chance to reconsider if they want to quit.

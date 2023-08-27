@@ -29,6 +29,10 @@ namespace Sprunker.UserInterface {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        public void ExitToTitle () {
+            SceneManager.LoadScene(1);
+        }
+
         public void ExitToDesktop () {
             Application.Quit();
             Debug.Log("Quitting Game");

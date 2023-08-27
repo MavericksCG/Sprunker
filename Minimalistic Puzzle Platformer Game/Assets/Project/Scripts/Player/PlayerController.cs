@@ -27,6 +27,7 @@ namespace Sprunker.Player {
         public float jumpForce;
 
         // Ground Detection
+        private Transform rayDownPos;
         [SerializeField] private float checkHeight;
 
         private bool isGrounded;
@@ -166,9 +167,12 @@ namespace Sprunker.Player {
                 utilities.Spawn(spawnSoundEffect);
             else
                 return;
+            
+            rayDownPos = GameObject.FindGameObjectWithTag("Ground Check Position").GetComponent<Transform>();
 
             // Get Teleport Audio Source
-            teleportSFX = GameObject.FindGameObjectWithTag("Teleport Audio").GetComponent<AudioSource>();
+            if (teleportSFX != null) 
+                teleportSFX = GameObject.FindGameObjectWithTag("Teleport Audio").GetComponent<AudioSource>();
             superJumpReadySFX = GameObject.FindGameObjectWithTag("Super Jump Ready Audio").GetComponent<AudioSource>();
             dashReadySFX = GameObject.FindGameObjectWithTag("Dash Ready Audio").GetComponent<AudioSource>();
         }
@@ -176,20 +180,26 @@ namespace Sprunker.Player {
 
         private void Update () {
             // Shoot a raycast downwards from transform.position
-            isGrounded = Physics2D.Raycast(transform.position, Vector2.down, checkHeight, whatIsGround);
+            if (rayDownPos != null)
+                isGrounded = Physics2D.Raycast(rayDownPos.position, Vector2.down, checkHeight, whatIsGround);
+            
             // Ray for visualizing the check process 
-            if (isGrounded) {
-                Debug.DrawRay(transform.position, Vector3.down, Color.green);
-            }
-            else {
-                Debug.DrawRay(transform.position, Vector3.down, Color.red);
+            if (rayDownPos != null) {
+
+                if (isGrounded) {
+                    Debug.DrawRay(rayDownPos.position, Vector3.down, Color.green);
+                }
+                else {
+                    Debug.DrawRay(rayDownPos.position, Vector3.down, Color.red);
+                }
+
             }
 
             if (checkpoint != null) {
-                if (checkpoint.hasSetCheckpoint && HasDied()) {
-                    // Revert the change in the priority if the player has set a checkpoint and the player has died
-                    SwitchCamera.instance.RevertPriorityChange();
-                }
+                    if (checkpoint.hasSetCheckpoint && HasDied()) {
+                        // Revert the change in the priority if the player has set a checkpoint and the player has died
+                        SwitchCamera.instance.RevertPriorityChange();
+                    }
             }
         } 
         
