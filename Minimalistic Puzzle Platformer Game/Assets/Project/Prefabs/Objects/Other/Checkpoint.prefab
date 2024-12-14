@@ -4943,6 +4943,9 @@ MonoBehaviour:
   prompt: {fileID: 0}
   checkpointSFX: {fileID: 0}
   hasSetCheckpoint: 0
+  rechargeDash: 1
+  rechargeSuperJump: 1
+  hasCheckpoint: 1
 --- !u!1 &1765011450064534883
 GameObject:
   m_ObjectHideFlags: 0

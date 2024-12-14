@@ -76,7 +76,7 @@ namespace Sprunker.UserInterface {
         }
 
         public void ExitToTitle () {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("MainMenu");
         }
 
         #endregion

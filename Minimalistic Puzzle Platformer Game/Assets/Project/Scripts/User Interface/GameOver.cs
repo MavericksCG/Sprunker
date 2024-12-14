@@ -10,7 +10,7 @@ namespace Sprunker.UserInterface {
         }
 
         public void Title () {
-            print("Loading Menu");
+            SceneManager.LoadScene("MainMenu");
         }
 
         public void Quit () {

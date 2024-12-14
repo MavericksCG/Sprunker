@@ -173,7 +173,7 @@ namespace Sprunker.Player {
             // Get Teleport Audio Source
             if (teleportSFX != null) 
                 teleportSFX = GameObject.FindGameObjectWithTag("Teleport Audio").GetComponent<AudioSource>();
-            superJumpReadySFX = GameObject.FindGameObjectWithTag("Super Jump Ready Audio").GetComponent<AudioSource>();
+            //superJumpReadySFX = GameObject.FindGameObjectWithTag("Super Jump Ready Audio").GetComponent<AudioSource>();
             dashReadySFX = GameObject.FindGameObjectWithTag("Dash Ready Audio").GetComponent<AudioSource>();
         }
 
