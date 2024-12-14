@@ -1,5 +1,4 @@
 ## Sprunker is a minimalistic and colourful platformer game
----
 **My Socials** 
 
 - [Itch](https://maverickscg.itch.io/)
